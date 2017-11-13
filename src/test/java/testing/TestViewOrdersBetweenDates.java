@@ -57,7 +57,6 @@ public class TestViewOrdersBetweenDates {
 		theatre1[0] = StaticSectionSetup.section_setup.get("Main right");
 		seat01 = theatre1[0].findSeatByCid("154");
 		seat02 = theatre1[0].findSeatByCid("153");
-		
 		Seat[] seats0 = new Seat[]{seat01,seat02};
 		theatre1[1] = StaticSectionSetup.section_setup.get("Front left");
 		theatre1[2] = StaticSectionSetup.section_setup.get("Front center");
@@ -70,7 +69,6 @@ public class TestViewOrdersBetweenDates {
 		seat11 = theatre2[1].findSeatByCid("291");
 		seat12 = theatre2[1].findSeatByCid("292");
 		Seat[] seats1 = {seat11,seat12};
-		System.out.println(theatre2[1]);
 		theatre2[2] = StaticSectionSetup.section_setup.get("Main center");
 		show1 = new Show(randomTime(), date2, theatre2, "Inception", "www.movie.org");
 		ord1 = new Order(show0, theatre2[1], p2, seats1);
