@@ -5,7 +5,6 @@ import static org.junit.Assert.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import org.junit.After;
 import org.junit.Test;
 
 import mics.Randomizer;
@@ -15,13 +14,15 @@ import thalia.Show;
 import thalia.Theatre;
 
 public class TestViewShowBetweenDates {
-	Theatre thalia = Theatre.getInstance();
-	Show show0;
-	Show show1;
+
 
 
 	@Test
 	public void testViewShowsBetweenDates(){
+		Theatre.restart();
+		Theatre thalia = Theatre.getInstance();
+		Show show0;
+		Show show1;
 		LocalDate date1 = LocalDate.of(2017, 11, 4);
 		LocalDate date2 = LocalDate.of(2017, 12, 4);
 		LocalDate startDate = LocalDate.of(2017, 11, 1);
@@ -46,10 +47,5 @@ public class TestViewShowBetweenDates {
 		assertTrue(result.size()==1);
 		assertTrue(result.get(0).equals(show0));
 		
-	}
-	@After
-	public void tearDown() throws Exception {
-		thalia.delete(show0);
-		thalia.delete(show1);
 	}
 }

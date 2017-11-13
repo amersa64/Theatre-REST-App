@@ -37,12 +37,6 @@ public class TestTheatreGenerator {
 		theatre2[1] = StaticSectionSetup.section_setup.get("Main left");
 		theatre2[2] = StaticSectionSetup.section_setup.get("Main center");
 		shows[1] = new Show(Randomizer.randomTime(), Randomizer.randomDate(), theatre2, "Inception", "www.movie.org");
-//		StaticSectionSetup._init();
-//		Section[] theatre = new Section[3];
-//		theatre[0] = StaticSectionSetup.section_setup.get("Main right");
-//		theatre[1] = StaticSectionSetup.section_setup.get("Front left");
-//		theatre[2] = StaticSectionSetup.section_setup.get("Main center");
-//		shows[2] = new Show(randomTime(), randomDate(), theatre, "HakunaMata", "www.IMBD.com");
 		thalia.add(shows[0]);
 		thalia.add(shows[1]);
 		assertFalse(thalia.getShows().get(0).getSeating_info()[0].equals(thalia.getShows().get(1).getSeating_info()[0]));
