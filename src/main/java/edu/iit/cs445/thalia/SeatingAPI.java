@@ -27,7 +27,6 @@ public class SeatingAPI {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response RequestSeats(@DefaultValue("") @QueryParam("show") String wid, @DefaultValue("") @QueryParam("section") String sid, @DefaultValue("0") @QueryParam("count") int count, @DefaultValue("") @QueryParam("starting_seat_id") String cid){
-		System.out.println("Yo");
 		if (wid.equals("") && sid.equals("") && cid.equals("")){
 			StaticSectionSetup._init();
 			SectionNameAdapter[] sna = new SectionNameAdapter[6];
@@ -55,16 +54,18 @@ public class SeatingAPI {
 				}
 			}
 		}
-		System.out.print("Why Hello There");
 		if (!wid.equals("") && !sid.equals("") && count!=0 && !cid.equals("")){
 			Show sh = Theatre.getInstance().searchShowId(wid);
+
 			for (Section section : sh.getSeating_info()){
 				if (section.getSid().equals(sid)){
+					int rowIndex =0;
 					for (Row row : section.getRows()){
+						int seatIndex = 0;
 						for (Seat seat : row.getSeats()){
 							if (seat.getCid().equals(cid)){
 								Section s = section;
-								Row r = s.reqNewSeats(count, Integer.valueOf(row.getRowId())-1, Integer.valueOf(seat.getSeat())-1);
+								Row r = s.reqNewSeats(count, rowIndex, seatIndex);
 								RowAvailAdapter raa = null;
 								if (r != null){
 									raa = new RowAvailAdapter(r);
@@ -72,7 +73,9 @@ public class SeatingAPI {
 								SeatRequestAdapter sra = new SeatRequestAdapter(sh, s, raa, count);
 								return Response.ok(sra).build();
 							}
+							seatIndex++;
 						}
+						rowIndex++;
 					}
 				}
 			}

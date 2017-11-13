@@ -11,8 +11,8 @@ public class OrderIDGenerator {
 	public int getNext(){
 		return idCounter++;
 	}
-	public void reset(){
-		idCounter =0;
+	public static void reset() {
+		getInstance().idCounter = 0;
 	}
 
 	public static OrderIDGenerator getInstance() {

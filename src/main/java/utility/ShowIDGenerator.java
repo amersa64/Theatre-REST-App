@@ -19,4 +19,7 @@ public class ShowIDGenerator {
 		}
 		return instance;
 	}
+	public static void reset() {
+		getInstance().idCounter = 0;
+	}
 }

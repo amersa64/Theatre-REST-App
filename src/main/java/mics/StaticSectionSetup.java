@@ -11,6 +11,11 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import seating.*;
+import utility.OrderIDGenerator;
+import utility.SeatIDGenerator;
+import utility.SectionIDGenerator;
+import utility.ShowIDGenerator;
+import utility.TicketIDGenerator;
 
 public class StaticSectionSetup {
 	public static HashMap<String,Section> section_setup;
@@ -19,7 +24,6 @@ public class StaticSectionSetup {
 		JSONParser parser = new JSONParser();
 		section_setup = new HashMap<>();
         try {     
-//            Object obj = parser.parse(new FileReader("C:\\Users\\Amer\\Documents\\Java-Eclipse\\edu.iit.cs445.thalia\\src\\project-test-theatre-seating.json"));
             Object obj = parser.parse(new FileReader("src\\main\\resources\\project-test-theatre-seating.json"));
             JSONArray arrayJSON =  (JSONArray) obj;
             for(int i=0; i <arrayJSON.size();i++){
@@ -44,7 +48,6 @@ public class StaticSectionSetup {
                 else 
                 	price =0;
                 Section s = new Section(section_name,price,rowsArray);
-//                System.out.println(s.toString());
                 section_setup.put(s.getSection_name(), s);
             }
         } catch (FileNotFoundException e) {
@@ -55,12 +58,19 @@ public class StaticSectionSetup {
             e.printStackTrace();
         }
     }
+	public static void resetIDGenerators() {
+		SeatIDGenerator.reset();
+		SectionIDGenerator.reset();
+		ShowIDGenerator.reset();
+		TicketIDGenerator.reset();
+		ShowIDGenerator.reset();
+		OrderIDGenerator.reset();
+	}
 	public static JSONArray staticReportSetup(){
 		JSONParser parser = new JSONParser();
 		JSONArray arrayJSON = null;
         try {     
             Object obj = parser.parse(new FileReader("src\\main\\resources\\project-reprts.json"));
-//            Object obj = parser.parse(new FileReader("C:\\Users\\Alrick\\workspace\\edu.iit.cs445.thalia\\src\\project-test-theatre-seating.json"));
             arrayJSON =  (JSONArray) obj;
         }catch (FileNotFoundException e) {
             e.printStackTrace();

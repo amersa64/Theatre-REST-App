@@ -19,4 +19,7 @@ public class DonationIDGenerator {
 		}
 		return instance;
 	}
+	public static void reset() {
+		getInstance().idCounter = 0;
+	}
 }

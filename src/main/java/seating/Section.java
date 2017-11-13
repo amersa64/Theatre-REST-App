@@ -67,6 +67,14 @@ public class Section {
 		return row;
 	}
 
+	public Row[] getSeating() {
+		return seating;
+	}
+
+	public void setSeating(Row[] seating) {
+		this.seating = seating;
+	}
+
 	public String getSid() {
 		return sid;
 	}
@@ -103,10 +111,10 @@ public class Section {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + Arrays.hashCode(seating);
 		long temp;
 		temp = Double.doubleToLongBits(price);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + Arrays.hashCode(seating);
 		result = prime * result + ((section_name == null) ? 0 : section_name.hashCode());
 		result = prime * result + ((sid == null) ? 0 : sid.hashCode());
 		return result;
@@ -121,9 +129,9 @@ public class Section {
 		if (getClass() != obj.getClass())
 			return false;
 		Section other = (Section) obj;
-		if (!Arrays.equals(seating, other.seating))
-			return false;
 		if (Double.doubleToLongBits(price) != Double.doubleToLongBits(other.price))
+			return false;
+		if (!Arrays.equals(seating, other.seating))
 			return false;
 		if (section_name == null) {
 			if (other.section_name != null)

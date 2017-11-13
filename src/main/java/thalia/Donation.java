@@ -21,6 +21,7 @@ public class Donation {
 		this.tickets= new ArrayList<Ticket>();
 		this.show= show;
 		this.patron_info=patron_info;
+		Theatre.getInstance().add(this);
 	}
 	public Donation(String did, DonationStatus status, int count, ArrayList<Ticket> tickets, Show show,
 			Patron patron_info) {
@@ -31,6 +32,7 @@ public class Donation {
 		this.tickets = tickets;
 		this.show = show;
 		this.patron_info = patron_info;
+		Theatre.getInstance().add(this);
 	}
 	public boolean tryAssignTicket(){
 		for(Ticket ticket: Theatre.getInstance().getDonatedTickets()){
@@ -44,8 +46,10 @@ public class Donation {
 		return false;
 	}
 	private void updateStatus(){
-		if(this.count==this.tickets.size())
+		if(this.count==this.tickets.size()) {
 			this.status=DonationStatus.assigned;
+			Theatre.getInstance().delete(this);
+			}
 	}
 	public void add(Ticket ticket){
 		this.tickets.add(ticket);

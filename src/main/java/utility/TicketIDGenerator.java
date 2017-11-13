@@ -11,14 +11,14 @@ public class TicketIDGenerator {
 	public int getNext(){
 		return idCounter++;
 	}
-	public void reset(){
-		idCounter =0;
-	}
 
 	public static TicketIDGenerator getInstance() {
 		if (instance == null) {
 			instance = new TicketIDGenerator();
 		}
 		return instance;
+	}
+	public static void reset() {
+		getInstance().idCounter = 0;
 	}
 }

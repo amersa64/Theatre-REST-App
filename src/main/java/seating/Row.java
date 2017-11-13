@@ -41,14 +41,14 @@ public class Row {
 		int counter = 0;
 		
 		for (int s = start; s < this.seats.length; s++){
-			if (this.seats[s].status.equals(SeatStatus.sold)){
+			if (this.seats[s].getStatus().equals(SeatStatus.sold)){
 				counter = 0;
 			}
 			else {
 				counter ++;
 			}
 			if (counter == numSeats){
-				return start;
+				return s-numSeats+1;
 			}
 		}
 		return -1;
@@ -58,14 +58,14 @@ public class Row {
 	
 	@Override
 	public String toString() {
-		return "RowAdapter [seats=" + Arrays.toString(seats) + ", row=" + row + "]";
+		return "Row [seats=" + Arrays.toString(seats) + ", row=" + row + "]";
 	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((row == null) ? 0 : row.hashCode());
 		result = prime * result + Arrays.hashCode(seats);
-		result = prime * result + row.hashCode();
 		return result;
 	}
 	@Override
@@ -77,9 +77,12 @@ public class Row {
 		if (getClass() != obj.getClass())
 			return false;
 		Row other = (Row) obj;
-		if (!Arrays.equals(seats, other.seats))
+		if (row == null) {
+			if (other.row != null)
+				return false;
+		} else if (!row.equals(other.row))
 			return false;
-		if (row != other.row)
+		if (!Arrays.equals(seats, other.seats))
 			return false;
 		return true;
 	}

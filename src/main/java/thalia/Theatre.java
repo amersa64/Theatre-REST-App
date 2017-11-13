@@ -2,7 +2,6 @@ package thalia;
 import java.time.LocalDate;
 import java.util.Queue;
 
-import mics.StaticSectionSetup;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -11,6 +10,9 @@ import seating.Section;
 
 public class Theatre {
 	private static Theatre instance = null;
+	public static synchronized void restart() {
+		instance = null;
+	}
 	public static Theatre getInstance() {
 		if (instance == null) {
 			instance = new Theatre();
@@ -30,7 +32,15 @@ public class Theatre {
 		}
 		return null;
 	}
-	
+	public void donateTicketByTid(String tid) {
+		for(Ticket t: this.tickets) {
+			if(t.getTid().equals(tid)) {
+				t.setDonated(true);
+				addD(t);
+			}
+				
+		}
+	}
 	public void updateDonations(){
 		Queue<Donation> temp = new LinkedList<>();
 		Donation assginedDonation =null;
@@ -42,10 +52,9 @@ public class Theatre {
 				temp.add(donR);
 			}
 		}
-		if(!assginedDonation.equals(null))
+		if(assginedDonation!=null)
 			temp.add(assginedDonation);
 		this.donationsRequest=temp;
-			
 	}
 	public void updateShow(Show show){
 		for (Show s: shows){
@@ -95,7 +104,6 @@ public class Theatre {
 	
 	//setters and getters and default constructors
 	protected Theatre(){
-		StaticSectionSetup._init();
 		this.shows = new ArrayList<Show>();
 		this.orders = new ArrayList<Order>();
 		this.tickets = new ArrayList<Ticket>();
@@ -113,8 +121,8 @@ public class Theatre {
 		this.orders.add(order);
 	}
 	public void add(Donation donatee){
-		donatee.tryAssignTicket();
 		this.donationsRequest.add(donatee);
+		donatee.tryAssignTicket();
 	}
 	public void addD(Ticket Dticket){
 		this.donatedTickets.add(Dticket);
