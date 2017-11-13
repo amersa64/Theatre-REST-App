@@ -73,10 +73,6 @@ public class Theatre {
 		Show show = searchShowId(wid);
 		return show.getSeating_info();
 	}
-	public void deleteShowId(String wid){
-		Show show = searchShowId(wid);
-		delete(show);
-	}
 	public ArrayList<Order> viewOrdersByDate(LocalDate startDate, LocalDate endDate){
 		ArrayList<Order> orders = new ArrayList<Order>();
 		for(Order o: this.orders){
