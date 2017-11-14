@@ -1,6 +1,6 @@
 package reporting.adapters;
 
-import java.time.LocalDate;
+//import java.time.LocalDate;
 
 import reporting.ShowRevenueReport;
 import reporting.TheatreRevenueReport;
@@ -8,8 +8,8 @@ import reporting.TheatreRevenueReport;
 public class TheatreShowRevenueAdapter {
 	String mrid;
 	String name;
-	LocalDate startDate;
-	LocalDate endDate;
+	String startDate;
+	String endDate;
 	int total_shows;
 	int total_seats;
 	int sold_seats;
@@ -18,8 +18,22 @@ public class TheatreShowRevenueAdapter {
 	public TheatreShowRevenueAdapter(TheatreRevenueReport trr){
 		this.mrid=String.valueOf(trr.getMrid());
 		this.name=trr.getName();
-		this.startDate=trr.getStartDate();
-		this.endDate=trr.getEndDate();
+		int syear = trr.getStartDate().getYear();
+		int smonth = trr.getStartDate().getMonthValue();
+		int sday = trr.getStartDate().getDayOfMonth();
+		int eyear = trr.getEndDate().getYear();
+		int emonth = trr.getEndDate().getMonthValue();
+		int eday = trr.getEndDate().getDayOfMonth();	
+		String styear = String.format("%04d", syear);
+		String stmonth = String.format("%02d", smonth);
+		String stday = String.format("%02d", sday);
+		String enyear = String.format("%04d", eyear);
+		String enmonth = String.format("%02d", emonth);
+		String enday = String.format("%02d", eday);
+		this.startDate = (styear + "-" + stmonth + "-" + stday);
+		this.endDate = (enyear + "-" + enmonth + "-" + enday);
+//		this.startDate=trr.getStartDate();
+//		this.endDate=trr.getEndDate();
 		this.total_shows=1;
 		this.total_seats=trr.getTotal_seats();
 		this.sold_seats=trr.getSold_seats();
@@ -38,16 +52,16 @@ public class TheatreShowRevenueAdapter {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public LocalDate getStartDate() {
+	public String getStartDate() {
 		return startDate;
 	}
-	public void setStartDate(LocalDate startDate) {
+	public void setStartDate(String startDate) {
 		this.startDate = startDate;
 	}
-	public LocalDate getEndDate() {
+	public String getEndDate() {
 		return endDate;
 	}
-	public void setEndDate(LocalDate endDate) {
+	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
 	public int getTotal_shows() {

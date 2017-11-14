@@ -20,17 +20,23 @@ public class Order {
 	
 	public Order(Show show,Section section, Patron patron_info, Seat[] seats){
 		this.patron_info = patron_info;
+		int count = 0;
 		for (int k = 0; k < section.getRows().length; k++){ //Traverse through rows in section
 			for (int l = 0; l < section.getRows()[k].getSeats().length; l++){ //Traverse through seats in row
 				for (int m = 0; m < seats.length; m++){ //Traverse each seat requested
 					if (section.getRows()[k].getSeats()[l].getCid().equals(seats[m].getCid())){ //Check to see if this is a seat requested
 						if (section.getRows()[k].getSeats()[l].getStatus().equals(SeatStatus.sold)) //Check to see if this seat is sold
 							return;
-						else
+						else {
 							section.getRows()[k].getSeats()[l].setStatus(SeatStatus.sold);
+							count++;
+						}
 					}
 				}
 			}
+		}
+		if (count < seats.length) {
+		return;
 		}
 		show.updateSection(section);
 		Theatre.getInstance().updateShow(show);

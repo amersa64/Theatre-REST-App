@@ -1,20 +1,25 @@
 package reporting.adapters;
 
+import java.text.DecimalFormat;
+
+import adapters.ShowDataAdapter;
 import reporting.ShowOccupancyReport;
-import thalia.ShowData;
+//import thalia.ShowData;
 
 public class MultiShowOccupancyAdapter {
 	String wid;
-	ShowData show_info;
+	ShowDataAdapter show_info;
 	int seats_available;
 	int seats_sold;
 	String occupancy;
 	public MultiShowOccupancyAdapter(ShowOccupancyReport sor){
 		this.wid = sor.getShow().getWid();
-		this.show_info=sor.getShow().getShow_info();
-		this.seats_available= sor.getAvailable_seats();
-		this.seats_sold = sor.getSeats_available();
-		this.occupancy=sor.getOccupancy()+"%";
+		this.show_info=new ShowDataAdapter(sor.getShow().getShow_info());
+//		this.show_info=sor.getShow().getShow_info();
+		this.seats_available= sor.getSeats_available();
+		this.seats_sold = sor.getSeats_sold();
+		DecimalFormat df = new DecimalFormat("#.##");
+		this.occupancy = df.format(sor.getOccupancy())+"%";
 	}
 	public String getWid() {
 		return wid;
@@ -22,10 +27,10 @@ public class MultiShowOccupancyAdapter {
 	public void setWid(String wid) {
 		this.wid = wid;
 	}
-	public ShowData getShow_info() {
+	public ShowDataAdapter getShow_info() {
 		return show_info;
 	}
-	public void setShow_info(ShowData show_info) {
+	public void setShow_info(ShowDataAdapter show_info) {
 		this.show_info = show_info;
 	}
 	public int getSeats_available() {

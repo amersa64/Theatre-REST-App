@@ -16,12 +16,13 @@ public class SeatRequestAdapter extends ShowAdapter {
 		super(show);
 		this.sid=section.getSid();
 		this.section_name= section.getSection_name();
-		this.total_amount = section.getPrice()*count; //Was added in
+		
 		if(seats != null){
 			this.status="ok";
 			this.starting_seat_id = seats.getSeats()[0].getCid();
 			this.seating = new ArrayList<RowAvailAdapter>();
 			this.seating.add(seats);
+			this.total_amount = section.getPrice()*count; //Was added in
 		}else{
 			this.status="Error: "+ count+ " contiguous seats not available";
 			this.starting_seat_id = section.getRows()[0].getSeats()[0].getCid();

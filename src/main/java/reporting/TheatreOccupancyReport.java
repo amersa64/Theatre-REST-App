@@ -2,6 +2,8 @@ package reporting;
 
 import java.time.LocalDate;
 
+import thalia.Show;
+
 public class TheatreOccupancyReport extends TheatreReport {
 	double overall_occupancy;
 	
@@ -10,17 +12,26 @@ public class TheatreOccupancyReport extends TheatreReport {
 		this.mrid = 801;
 		this.name = "Occupancy report";
 		updateOccupancy();
-		this.overall_occupancy=(this.sold_seats/this.total_seats)*100;
+		this.overall_occupancy=(Double.valueOf(this.sold_seats)/Double.valueOf(this.total_seats))*100;
 	}
 	public TheatreOccupancyReport(){
 		super();
 		this.mrid = 801;
 		this.name = "Occupancy report";
 		updateOccupancy();
-		this.overall_occupancy=(this.sold_seats/this.total_seats)*100;
+		this.overall_occupancy=(Double.valueOf(this.sold_seats)/Double.valueOf(this.total_seats))*100;
 	}
+	
+	public TheatreOccupancyReport(Show show){
+		super(show);
+		this.mrid = 801;
+		this.name = "Occupancy report";
+		updateOccupancy();
+		this.overall_occupancy=(Double.valueOf(this.sold_seats)/Double.valueOf(this.total_seats))*100;
+	}
+	
 	private void updateOccupancy(){
-		for(int i =0; i< theatre.getShows().size();i++){
+		for (int i = 0; i < this.shows.length; i++){
 			ShowOccupancyReport srr = new ShowOccupancyReport(theatre.getShows().get(i));
 			this.showsReports[i] =srr;
 		}

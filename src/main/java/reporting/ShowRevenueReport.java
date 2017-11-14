@@ -7,7 +7,7 @@ public class ShowRevenueReport extends ShowReport {
 
 	public ShowRevenueReport(Show show) {
 		super(show);
-		this.SectionsReports = new SectionRevenueReport[this.show.getSeating_info().length];
+		this.SectionsReports = new SectionRevenueReport[show.getSeating_info().length];
 		update();
 	}
 	public void update(){

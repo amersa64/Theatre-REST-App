@@ -13,10 +13,12 @@ public class ShowDonationReport extends ShowReport{
 	private void updateSectionReports(){
 		for(int i=0; i < this.show.getSeating_info().length;i++){
 			SectionDonationReport sr = new SectionDonationReport(this.show.getSeating_info()[i]);
+			if (sr != null){
 			this.SectionsReports[i] = sr;
 			this.donated_tickets+=sr.getDonated_tickets();
 			this.donated_and_used_tickets+=sr.getDonated_and_used_tickets();
 			this.donated_and_used_value+=sr.getDonated_and_used_value();
+			}
 		}
 	}
 	public int getDonated_tickets() {

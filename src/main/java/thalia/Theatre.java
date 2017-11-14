@@ -1,8 +1,6 @@
 package thalia;
 import java.time.LocalDate;
 import java.util.Queue;
-
-
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -10,7 +8,7 @@ import seating.Section;
 
 public class Theatre {
 	private static Theatre instance = null;
-	public static synchronized void restart() {
+		public static synchronized void restart() {
 		instance = null;
 	}
 	public static Theatre getInstance() {
@@ -37,24 +35,23 @@ public class Theatre {
 			if(t.getTid().equals(tid)) {
 				t.setDonated(true);
 				addD(t);
-			}
-				
+			}	
 		}
 	}
 	public void updateDonations(){
 		Queue<Donation> temp = new LinkedList<>();
-		Donation assginedDonation =null;
+		Donation assignedDonation =null;
 		while(!donationsRequest.isEmpty()){
 			Donation donR = donationsRequest.poll();
 			if(donR.tryAssignTicket()){
-				assginedDonation = donR;
+				assignedDonation = donR;
 			}else{
 				temp.add(donR);
 			}
 		}
-		if(assginedDonation!=null)
-			temp.add(assginedDonation);
-		this.donationsRequest=temp;
+		if(assignedDonation != null)
+			temp.add(assignedDonation);
+		this.donationsRequest=temp;	
 	}
 	public void updateShow(Show show){
 		for (Show s: shows){
@@ -76,7 +73,7 @@ public class Theatre {
 	public ArrayList<Order> viewOrdersByDate(LocalDate startDate, LocalDate endDate){
 		ArrayList<Order> orders = new ArrayList<Order>();
 		for(Order o: this.orders){
-			if(o.getDate_ordered().toLocalDate().isAfter(startDate) &&  o.getDate_ordered().toLocalDate().isBefore(endDate)){
+			if((o.getDate_ordered().toLocalDate().isAfter(startDate) || o.getDate_ordered().toLocalDate().isEqual(startDate)) &&  (o.getDate_ordered().toLocalDate().isBefore(endDate) || o.getDate_ordered().toLocalDate().isEqual(endDate))){
 				orders.add(o);
 			}
 		}
@@ -90,9 +87,8 @@ public class Theatre {
 			return this.shows; 
 		ArrayList<Show> shows = new ArrayList<Show>();
 		for(Show show: this.shows){
-			if(show.getDate().isAfter(startDate) && show.getDate().isBefore(endDate)){
+			if((show.getDate().isAfter(startDate) || show.getDate().isEqual(startDate))&& (show.getDate().isBefore(endDate) || show.getDate().isEqual(endDate)))
 				shows.add(show);
-			}
 		}
 		return shows;
 	}
@@ -230,7 +226,4 @@ public class Theatre {
 			return false;
 		return true;
 	}
-	
-	
-
 }

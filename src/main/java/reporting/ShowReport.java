@@ -13,6 +13,7 @@ public class ShowReport {
 	SectionReport[] SectionsReports;
 	public ShowReport(Show show){
 		this.show = show;
+		this.SectionsReports = new SectionReport[show.getSeating_info().length];
 		updateOccupancyMetrics();
 	}
 	private void updateOccupancyMetrics(){

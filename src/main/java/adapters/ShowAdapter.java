@@ -1,16 +1,17 @@
 package adapters;
 
 import thalia.Show;
-import thalia.ShowData;
+//import thalia.ShowData;
 
 public class ShowAdapter {
 
 	protected String wid;
-	protected ShowData show_info;
+	protected ShowDataAdapter show_info;
 
 	public ShowAdapter(Show show) {
 		this.wid = show.getWid();
-		this.show_info= show.getShow_info();
+//		this.show_info= show.getShow_info();
+		this.show_info= new ShowDataAdapter(show.getShow_info());
 	}
 
 	public String getWid() {
@@ -21,11 +22,11 @@ public class ShowAdapter {
 		this.wid = wid;
 	}
 
-	public ShowData getShow_info() {
+	public ShowDataAdapter getShow_info() {
 		return show_info;
 	}
 
-	public void setShow_info(ShowData show_info) {
+	public void setShow_info(ShowDataAdapter show_info) {
 		this.show_info = show_info;
 	}
 

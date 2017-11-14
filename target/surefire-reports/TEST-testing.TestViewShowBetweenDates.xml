@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="1" failures="0" name="testing.TestViewShowBetweenDates" time="0.001" errors="0" skipped="0">
+<testsuite tests="1" failures="0" name="testing.TestViewShowBetweenDates" time="0" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="java.vm.version" value="9.0.1+11"/>
-    <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-9.0.1\bin"/>
-    <property name="maven.multiModuleProjectDirectory" value="C:/Users/Amer/Documents/Java-Eclipse/Thalia"/>
+    <property name="sun.boot.library.path" value="C:\Program Files\Java\jre-9.0.1\bin"/>
+    <property name="maven.multiModuleProjectDirectory" value="C:\cygwin64\home\Alrick\Theatre-REST-App"/>
     <property name="java.vm.vendor" value="Oracle Corporation"/>
     <property name="java.vendor.url" value="http://java.oracle.com/"/>
     <property name="guice.disable.misplaced.annotation.check" value="true"/>
@@ -16,46 +16,43 @@
     <property name="user.country" value="US"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="user.dir" value="C:\Users\Amer\Documents\Java-Eclipse\Thalia"/>
+    <property name="user.dir" value="C:\cygwin64\home\Alrick\Theatre-REST-App"/>
     <property name="java.vm.compressedOopsMode" value="32-bit"/>
     <property name="java.runtime.version" value="9.0.1+11"/>
     <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
     <property name="os.arch" value="amd64"/>
-    <property name="java.io.tmpdir" value="C:\Users\Amer\AppData\Local\Temp\"/>
+    <property name="java.io.tmpdir" value="C:\Users\Alrick\AppData\Local\Temp\"/>
     <property name="line.separator" value="
 "/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="user.variant" value=""/>
     <property name="os.name" value="Windows 10"/>
-    <property name="classworlds.conf" value="C:/Program Files/Java/apache-maven-3.5.2/bin/m2.conf"/>
+    <property name="classworlds.conf" value="C:\Users\Alrick\workspace\.metadata\.plugins\org.eclipse.m2e.launching\launches\m2conf14166955542327651857.tmp"/>
     <property name="sun.jnu.encoding" value="Cp1252"/>
-    <property name="java.library.path" value="C:\Program Files\Java\jdk-9.0.1\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Users\Amer\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\Amer\bin;C:\app\Amer\product\12.1.0\client_1\bin;C:\ProgramData\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\Program Files\Intel\WiFi\bin;C:\Program Files\Common Files\Intel\WirelessCommon;C:\Program Files (x86)\Skype\Phone;C:\Program Files\MiKTeX 2.9\miktex\bin\x64;C:\Users\Amer\Anaconda3\Library\bin\graphviz;C:\Program Files (x86)\Graphviz2.38\bin;C:\Program Files\Java\jdk-9.0.1\bin;C:\Program Files\Java\jre-9.0.1\bin;C:\Program Files\Java\apache-maven-3.5.2\bin;C:\Users\Amer\AppData\Local\Microsoft\WindowsApps;C:\Program Files\Intel\WiFi\bin;C:\Program Files\Common Files\Intel\WirelessCommon;C:\Users\Amer\Anaconda3;C:\Users\Amer\Anaconda3\Scripts;C:\Program Files (x86)\Graphviz2.38\bin;C:\Users\Amer\AppData\Roaming\Dashlane\5.0.1.11267\bin\Firefox_Extension\{442718d9-475e-452a-b3e1-fb1ee16b8e9f}\components;C:\Users\Amer\AppData\Roaming\Dashlane\5.0.1.11267\ucrt;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl;."/>
-    <property name="jansi.passthrough" value="true"/>
-    <property name="maven.conf" value="C:/Program Files/Java/apache-maven-3.5.2/conf"/>
+    <property name="java.library.path" value="C:\Program Files\Java\jre-9.0.1\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:/Program Files/Java/jdk-9.0.1/bin/server;C:/Program Files/Java/jdk-9.0.1/bin;C:\Program Files\Java\jdk-9.0.1\bin;C:\Program Files\Java\apache-maven-3.5.2-bin\apache-maven-3.5.2\bin;C:\Program Files\Java\jre-9.0.1\bin;C:\Users\Alrick\AppData\Local\Microsoft\WindowsApps;;C:\Users\Alrick\eclipse;;."/>
     <property name="jdk.debug" value="release"/>
     <property name="java.class.version" value="53.0"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="os.version" value="10.0"/>
-    <property name="library.jansi.path" value="C:/Program Files/Java/apache-maven-3.5.2/lib/jansi-native"/>
-    <property name="user.home" value="C:\Users\Amer"/>
+    <property name="user.home" value="C:\Users\Alrick"/>
     <property name="user.timezone" value="America/Chicago"/>
     <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob"/>
     <property name="file.encoding" value="Cp1252"/>
     <property name="java.specification.version" value="9"/>
-    <property name="user.name" value="Amer"/>
-    <property name="java.class.path" value="C:/Program Files/Java/apache-maven-3.5.2/boot/plexus-classworlds-2.5.2.jar"/>
+    <property name="user.name" value="Alrick"/>
+    <property name="java.class.path" value="C:\Users\Alrick\eclipse\plugins\org.eclipse.m2e.maven.runtime_1.8.2.20171007-0216\jars\plexus-classworlds-2.5.2.jar"/>
     <property name="java.vm.specification.version" value="9"/>
     <property name="sun.arch.data.model" value="64"/>
-    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher test"/>
-    <property name="java.home" value="C:\Program Files\Java\jdk-9.0.1"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -B package"/>
+    <property name="java.home" value="C:\Program Files\Java\jre-9.0.1"/>
     <property name="user.language" value="en"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
     <property name="java.vm.info" value="mixed mode"/>
     <property name="java.version" value="9.0.1"/>
     <property name="java.vendor" value="Oracle Corporation"/>
-    <property name="maven.home" value="C:\Program Files\Java\apache-maven-3.5.2"/>
+    <property name="maven.home" value="C:\cygwin64\home\Alrick\Theatre-REST-App\EMBEDDED"/>
     <property name="file.separator" value="\"/>
     <property name="java.vendor.url.bug" value="http://bugreport.java.com/bugreport/"/>
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
@@ -63,5 +60,5 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="testing.TestViewShowBetweenDates" name="testViewShowsBetweenDates" time="0.001"/>
+  <testcase classname="testing.TestViewShowBetweenDates" name="testViewShowsBetweenDates" time="0"/>
 </testsuite>

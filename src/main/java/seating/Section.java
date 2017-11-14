@@ -3,7 +3,7 @@ package seating;
 import java.util.Arrays;
 
 //import testing.StaticSectionSetup;
-import utility.SectionIDGenerator;
+//import utility.SectionIDGenerator;
 
 public class Section {
 	String sid;
@@ -24,7 +24,28 @@ public class Section {
 	
 	public Section(String Name, double price, Row[] rows){
 		this.section_name = Name;
-		this.sid = String.valueOf(SectionIDGenerator.getInstance().getNext());
+		switch (Name) {
+		case "Front right":
+			this.sid = "123";
+			break;
+		case "Front center":
+			this.sid = "124";
+			break;
+		case "Front left":
+			this.sid = "125";
+			break;
+		case "Main right":
+			this.sid = "126";
+			break;
+		case "Main center":
+			this.sid = "127";
+			break;
+		case "Main left":
+			this.sid = "128";
+			break;
+			
+		}
+//		this.sid = String.valueOf(SectionIDGenerator.getInstance().getNext());
 		this.seating = rows;
 		this.price= price;
 	}
@@ -66,7 +87,7 @@ public class Section {
 		}
 		return row;
 	}
-
+	
 	public Row[] getSeating() {
 		return seating;
 	}
@@ -111,10 +132,10 @@ public class Section {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + Arrays.hashCode(seating);
 		long temp;
 		temp = Double.doubleToLongBits(price);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
-		result = prime * result + Arrays.hashCode(seating);
 		result = prime * result + ((section_name == null) ? 0 : section_name.hashCode());
 		result = prime * result + ((sid == null) ? 0 : sid.hashCode());
 		return result;
@@ -129,9 +150,9 @@ public class Section {
 		if (getClass() != obj.getClass())
 			return false;
 		Section other = (Section) obj;
-		if (Double.doubleToLongBits(price) != Double.doubleToLongBits(other.price))
-			return false;
 		if (!Arrays.equals(seating, other.seating))
+			return false;
+		if (Double.doubleToLongBits(price) != Double.doubleToLongBits(other.price))
 			return false;
 		if (section_name == null) {
 			if (other.section_name != null)
@@ -150,10 +171,5 @@ public class Section {
 	public String toString() {
 		return "Section [sid=" + sid + ", section_name=" + section_name + ", price="
 				+ price +  "\n seating=" + Arrays.toString(seating) +"]";
-	}
-	
-	
-
-
-	
+	}	
 }

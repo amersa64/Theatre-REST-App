@@ -1,17 +1,19 @@
 package reporting.adapters;
 
+import adapters.ShowDataAdapter;
 import reporting.ShowRevenueReport;
-import thalia.ShowData;
+//import thalia.ShowData;
 
 public class MultiShowRevenueAdapter {
 	String wid;
-	ShowData show_info;
+	ShowDataAdapter show_info;
 	int seats_available;
 	int seats_sold;
 	double revenue;
 	public MultiShowRevenueAdapter(ShowRevenueReport srr){
 		this.wid = srr.getShow().getWid();
-		this.show_info=srr.getShow().getShow_info();
+		this.show_info= new ShowDataAdapter(srr.getShow().getShow_info());
+//		this.show_info=srr.getShow().getShow_info();
 		this.seats_available=srr.getSeats_available();
 		this.seats_sold = srr.getSeats_sold();
 		this.revenue= srr.getRevenue();
@@ -22,10 +24,10 @@ public class MultiShowRevenueAdapter {
 	public void setWid(String wid) {
 		this.wid = wid;
 	}
-	public ShowData getShow_info() {
+	public ShowDataAdapter getShow_info() {
 		return show_info;
 	}
-	public void setShow_info(ShowData show_info) {
+	public void setShow_info(ShowDataAdapter show_info) {
 		this.show_info = show_info;
 	}
 	public int getSeats_available() {

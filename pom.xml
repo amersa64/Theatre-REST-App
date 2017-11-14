@@ -4,6 +4,8 @@
   <artifactId>Thalia</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>thalia</name>
+  <packaging>jar</packaging>
+  
   <dependencies>
   <!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
 	<dependency>
@@ -20,23 +22,69 @@
 	</dependency>
 	<!-- https://mvnrepository.com/artifact/javax.ws.rs/javax.ws.rs-api -->
 	<dependency>
-	    <groupId>javax.ws.rs</groupId>
-	    <artifactId>javax.ws.rs-api</artifactId>
-	    <version>2.0</version>
+   		<groupId>org.glassfish.jersey.core</groupId>
+    	<artifactId>jersey-server</artifactId>
+	    <version>2.17</version>
 	</dependency>
-	
+	<dependency>
+    	<groupId>org.glassfish.jersey.containers</groupId>
+    	<artifactId>jersey-container-servlet-core</artifactId>
+    	<version>2.17</version>
+	</dependency>
+    <dependency>
+        <groupId>com.yammer.dropwizard</groupId>
+        <artifactId>dropwizard-core</artifactId>
+        <version>0.6.2</version>
+    </dependency>
   </dependencies>
+  
 <build>
      <plugins>
         <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.7.0</version>
+                <version>3.0</version>
                 <configuration>
                    <source>9</source>
                    <target>9</target>
                 </configuration>
         </plugin>
+        
+        <plugin>
+    		<groupId>org.apache.maven.plugins</groupId>
+   			<artifactId>maven-shade-plugin</artifactId>
+    		<version>2.3</version>
+    		<configuration> 
+        		<createDependencyReducedPom>true</createDependencyReducedPom>
+		        <filters>
+            		<filter>
+                		<artifact>*:*</artifact>
+                		<excludes>
+        	            	<exclude>META-INF/*.SF</exclude>
+    	                	<exclude>META-INF/*.DSA</exclude>
+	                    	<exclude>META-INF/*.RSA</exclude>
+                		</excludes>
+            		</filter>
+        		</filters>
+    		</configuration>
+    		<executions>
+        		<execution>
+            		<phase>package</phase>
+            		<goals>
+                		<goal>shade</goal>
+            		</goals>
+            		<configuration>
+                		<transformers>
+                    		<transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+                    		<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                        	<mainClass>dropwizard.DropWizardService</mainClass>
+                    		</transformer>
+                		</transformers>
+            		</configuration>
+        		</execution>
+  			</executions>
+		</plugin>  
     </plugins>
 </build>
+
 </project>

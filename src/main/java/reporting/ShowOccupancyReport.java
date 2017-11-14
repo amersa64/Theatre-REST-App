@@ -8,25 +8,14 @@ public class ShowOccupancyReport extends ShowReport {
 		super(show);
 		this.SectionsReports= new SectionOccupancyReport[show.getSeating_info().length];
 		updateSectionReports();
-		this.occupancy=(this.seats_sold/(this.seats_available+this.seats_sold))*100;
+		double denom = Double.valueOf(this.seats_available) + Double.valueOf(this.seats_sold);
+		this.occupancy=(Double.valueOf(this.seats_sold)/denom)*100;
 	}
 	private void updateSectionReports(){
 		for(int i=0; i < this.show.getSeating_info().length;i++){
 			SectionOccupancyReport sr = new SectionOccupancyReport(this.show.getSeating_info()[i]);
 			this.SectionsReports[i] = sr;
 		}
-	}
-	public int getSeats_sold() {
-		return seats_sold;
-	}
-	public void setSeats_sold(int seats_sold) {
-		this.seats_sold = seats_sold;
-	}
-	public int getAvailable_seats() {
-		return seats_available;
-	}
-	public void setAvailable_seats(int available_seats) {
-		this.seats_available = available_seats;
 	}
 	public double getOccupancy() {
 		return occupancy;

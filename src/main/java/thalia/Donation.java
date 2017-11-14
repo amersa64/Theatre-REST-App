@@ -34,16 +34,36 @@ public class Donation {
 		this.patron_info = patron_info;
 		Theatre.getInstance().add(this);
 	}
+//	public boolean tryAssignTicket(){
+//		for(Ticket ticket: Theatre.getInstance().getDonatedTickets()){
+//			if(ticket.getShow().getWid().equals(this.show.getWid())){
+//				add(ticket);
+//				updateStatus();
+//				Theatre.getInstance().deleteD(ticket);
+//				return true;
+//			}
+//		}
+//		return false;
+//	}
 	public boolean tryAssignTicket(){
+		ArrayList<Ticket> validTickets = new ArrayList<Ticket>();
 		for(Ticket ticket: Theatre.getInstance().getDonatedTickets()){
-			if(ticket.getShow().getWid().equals(this.show.getWid())){
-				add(ticket);
-				updateStatus();
-				Theatre.getInstance().deleteD(ticket);
-				return true;
+			if(ticket.getShow().getWid().equals(this.show.getWid()) && validTickets.size() < this.count){
+				validTickets.add(ticket);
 			}
 		}
-		return false;
+		if (validTickets.size() != 0) {
+			for (Ticket valtix : validTickets) {
+				valtix.setDonated(true);
+				add(valtix);
+				updateStatus();
+				Theatre.getInstance().deleteD(valtix);
+			}
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 	private void updateStatus(){
 		if(this.count==this.tickets.size()) {

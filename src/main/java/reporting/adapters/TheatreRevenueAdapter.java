@@ -1,6 +1,5 @@
 package reporting.adapters;
 
-import java.time.LocalDate;
 import java.util.Arrays;
 
 import reporting.ShowRevenueReport;
@@ -9,8 +8,8 @@ import reporting.TheatreRevenueReport;
 public class TheatreRevenueAdapter {
 	String mrid;
 	String name;
-	LocalDate startDate;
-	LocalDate endDate;
+	String startDate;
+	String endDate;
 	int total_shows;
 	int total_seats;
 	int sold_seats;
@@ -19,13 +18,39 @@ public class TheatreRevenueAdapter {
 	public TheatreRevenueAdapter(TheatreRevenueReport trr){
 		this.mrid=String.valueOf(trr.getMrid());
 		this.name=trr.getName();
-		this.startDate=trr.getStartDate();
-		this.endDate=trr.getEndDate();
 		this.total_shows=trr.getShows().length;
 		this.total_seats=trr.getTotal_seats();
 		this.sold_seats=trr.getSold_seats();
 		this.overall_revenue=trr.getOverall_revenue();
 		this.shows= new MultiShowRevenueAdapter[this.total_shows];
+		
+		if (trr.getStartDate() == null) {
+			this.startDate = "";
+		}
+		else {
+			int syear = trr.getStartDate().getYear();
+			int smonth = trr.getStartDate().getMonthValue();
+			int sday = trr.getStartDate().getDayOfMonth();
+			String styear = String.format("%04d", syear);
+			String stmonth = String.format("%02d", smonth);
+			String stday = String.format("%02d", sday);
+			this.startDate = (styear + "-" + stmonth + "-" + stday);
+//			this.startDate= trr.getStartDate().toString();
+		}
+		if (trr.getEndDate() == null) {
+			this.endDate = "";
+		}
+		else {
+			int eyear = trr.getEndDate().getYear();
+			int emonth = trr.getEndDate().getMonthValue();
+			int eday = trr.getEndDate().getDayOfMonth();
+			String enyear = String.format("%04d", eyear);
+			String enmonth = String.format("%02d", emonth);
+			String enday = String.format("%02d", eday);
+			this.endDate = (enyear + "-" + enmonth + "-" + enday);
+//			this.endDate = trr.getEndDate().toString();
+		}
+		
 		for(int i =0; i<this.total_shows;i++){
 			this.shows[i] = new MultiShowRevenueAdapter((ShowRevenueReport)trr.getShowsReports()[i]);
 		}
@@ -42,16 +67,16 @@ public class TheatreRevenueAdapter {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public LocalDate getStartDate() {
+	public String getStartDate() {
 		return startDate;
 	}
-	public void setStartDate(LocalDate startDate) {
+	public void setStartDate(String startDate) {
 		this.startDate = startDate;
 	}
-	public LocalDate getEndDate() {
+	public String getEndDate() {
 		return endDate;
 	}
-	public void setEndDate(LocalDate endDate) {
+	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
 	public int getTotal_shows() {

@@ -2,6 +2,8 @@ package reporting;
 
 import java.time.LocalDate;
 
+import thalia.Show;
+
 public class TheatreDonationReport extends TheatreReport{
 	int donated_tickets=0;
 	int donated_and_used_tickets=0;
@@ -18,8 +20,16 @@ public class TheatreDonationReport extends TheatreReport{
 		this.name = "Donated tickets report";
 		updateDonationsReport();
 	}
+	
+	public TheatreDonationReport(Show show){
+		super(show);
+		this.mrid = 803;
+		this.name = "Donated tickets report";
+		updateDonationsReport();
+	}
+	
 	private void updateDonationsReport(){
-		for(int i =0; i< theatre.getShows().size();i++){
+		for(int i =0; i< this.shows.length;i++){
 			ShowDonationReport srr = new ShowDonationReport(theatre.getShows().get(i));
 			this.showsReports[i] =srr;
 			this.donated_tickets+=srr.getDonated_tickets();

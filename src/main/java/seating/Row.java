@@ -41,7 +41,7 @@ public class Row {
 		int counter = 0;
 		
 		for (int s = start; s < this.seats.length; s++){
-			if (this.seats[s].getStatus().equals(SeatStatus.sold)){
+			if (this.seats[s].status.equals(SeatStatus.sold)){
 				counter = 0;
 			}
 			else {
@@ -58,7 +58,7 @@ public class Row {
 	
 	@Override
 	public String toString() {
-		return "Row [seats=" + Arrays.toString(seats) + ", row=" + row + "]";
+		return "RowAdapter [seats=" + Arrays.toString(seats) + ", row=" + row + "]";
 	}
 	@Override
 	public int hashCode() {

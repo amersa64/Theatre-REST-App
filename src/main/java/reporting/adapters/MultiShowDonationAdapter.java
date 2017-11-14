@@ -1,11 +1,12 @@
 package reporting.adapters;
 
+import adapters.ShowDataAdapter;
 import reporting.ShowDonationReport;
-import thalia.ShowData;
+//import thalia.ShowData;
 
 public class MultiShowDonationAdapter {
 	String wid;
-	ShowData show_info;
+	ShowDataAdapter show_info;
 	int seats_available;
 	int seats_sold;
 	int donated_tickets;
@@ -13,7 +14,8 @@ public class MultiShowDonationAdapter {
 	double donated_and_used_value;
 	public MultiShowDonationAdapter(ShowDonationReport sdr){
 		this.wid = sdr.getShow().getWid();
-		this.show_info = sdr.getShow().getShow_info();
+		this.show_info = new ShowDataAdapter(sdr.getShow().getShow_info());
+//		this.show_info = sdr.getShow().getShow_info();
 		this.seats_available=sdr.getSeats_available();
 		this.seats_sold=sdr.getSeats_sold();
 		this.donated_tickets = sdr.getDonated_tickets();
@@ -26,10 +28,10 @@ public class MultiShowDonationAdapter {
 	public void setWid(String wid) {
 		this.wid = wid;
 	}
-	public ShowData getShow_info() {
+	public ShowDataAdapter getShow_info() {
 		return show_info;
 	}
-	public void setShow_info(ShowData show_info) {
+	public void setShow_info(ShowDataAdapter show_info) {
 		this.show_info = show_info;
 	}
 	public int getSeats_available() {

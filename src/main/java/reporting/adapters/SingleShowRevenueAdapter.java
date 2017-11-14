@@ -2,17 +2,19 @@ package reporting.adapters;
 
 import java.util.Arrays;
 
+import adapters.ShowDataAdapter;
 import reporting.SectionRevenueReport;
 import reporting.ShowRevenueReport;
-import thalia.ShowData;
+//import thalia.ShowData;
 
 public class SingleShowRevenueAdapter {
 	String wid;
-	ShowData show_info;
+	ShowDataAdapter show_info;
 	SectionRevenueApdater[] sections;
 	public SingleShowRevenueAdapter(ShowRevenueReport sor){
 		this.wid = sor.getShow().getWid();
-		this.show_info=sor.getShow().getShow_info();
+		this.show_info= new ShowDataAdapter(sor.getShow().getShow_info());
+//		this.show_info=sor.getShow().getShow_info();
 		this.sections= new SectionRevenueApdater[sor.getShow().getSeating_info().length];
 		for(int i=0;i<this.sections.length;i++){
 			this.sections[i] = new SectionRevenueApdater((SectionRevenueReport) sor.getSectionsReports()[i]);
@@ -24,10 +26,10 @@ public class SingleShowRevenueAdapter {
 	public void setWid(String wid) {
 		this.wid = wid;
 	}
-	public ShowData getShow_info() {
+	public ShowDataAdapter getShow_info() {
 		return show_info;
 	}
-	public void setShow_info(ShowData show_info) {
+	public void setShow_info(ShowDataAdapter show_info) {
 		this.show_info = show_info;
 	}
 	public SectionRevenueApdater[] getSections() {

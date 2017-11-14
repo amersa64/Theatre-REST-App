@@ -11,7 +11,7 @@ public class DonationAvailAdapter {
 	protected String wid;	
 	protected int count;
 	protected String status;
-	protected ArrayList<Ticket> tickets;
+	protected ArrayList<String> tickets;
 //	protected Show show;
 	protected Patron patron_info;
 	
@@ -20,8 +20,11 @@ public class DonationAvailAdapter {
 		this.did= d.getDid();
 		this.count= d.getCount();
 		this.status= d.getStatus().toString();
-		this.tickets= d.getTickets();
 		this.patron_info = d.getPatron_info();
+		this.tickets = new ArrayList<String>();
+		for (Ticket ticket : d.getTickets()) {
+			this.tickets.add(ticket.getTid());
+		}
 	}
 
 	public String getDid() {
@@ -42,10 +45,10 @@ public class DonationAvailAdapter {
 	public void setCount(int count) {
 		this.count = count;
 	}
-	public ArrayList<Ticket> getTickets() {
+	public ArrayList<String> getTickets() {
 		return tickets;
 	}
-	public void setTickets(ArrayList<Ticket> tickets) {
+	public void setTickets(ArrayList<String> tickets) {
 		this.tickets = tickets;
 	}
 	public Patron getPatron_info() {

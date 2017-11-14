@@ -1,17 +1,16 @@
 
 package adapters;
 
-import java.time.LocalDateTime;
+//import java.time.LocalDateTime;
 
 import thalia.Order;
-import thalia.ShowData;
 import thalia.Ticket;
 
 public class OrderLookAdapter {
 	String oid;
 	String wid;
-	ShowData show_info;
-	LocalDateTime  date_ordered;
+	ShowDataAdapter show_info;
+	String date_ordered;
 	double order_amount;
 	PatronAdapter patron_info;
 	int number_of_tickets;
@@ -19,8 +18,20 @@ public class OrderLookAdapter {
 	public OrderLookAdapter(Order order){
 		this.oid=order.getOid();
 		this.wid= order.getShow().getWid();
-		this.show_info=order.getShow().getShow_info();
-		this.date_ordered=order.getDate_ordered();
+		this.show_info= new ShowDataAdapter(order.getShow().getShow_info());
+//		this.show_info=order.getShow().getShow_info();
+		int iyear = order.getDate_ordered().getYear();
+		int imonth = order.getDate_ordered().getMonthValue();
+		int iday = order.getDate_ordered().getDayOfMonth();
+		int ihour = order.getDate_ordered().getHour();
+		int iminute = order.getDate_ordered().getMinute();
+		String year = String.valueOf(iyear);
+		String month = String.valueOf(imonth);
+		String day = String.valueOf(iday);
+		String hour = String.valueOf(ihour);
+		String minute = String.valueOf(iminute);
+		this.date_ordered = (year + "-" + month + "-" + day + " " + hour + ":" + minute);
+//		this.date_ordered=order.getDate_ordered();
 		this.order_amount=order.getOrder_amount();
 		this.patron_info= new PatronAdapter(order.getPatron_info());
 		this.number_of_tickets = order.getNumber_of_tickets();
@@ -43,16 +54,16 @@ public class OrderLookAdapter {
 	public void setWid(String wid) {
 		this.wid = wid;
 	}
-	public ShowData getShow_info() {
+	public ShowDataAdapter getShow_info() {
 		return show_info;
 	}
-	public void setShow_info(ShowData show_info) {
+	public void setShow_info(ShowDataAdapter show_info) {
 		this.show_info = show_info;
 	}
-	public LocalDateTime getDate_ordered() {
+	public String getDate_ordered() {
 		return date_ordered;
 	}
-	public void setDate_ordered(LocalDateTime date_ordered) {
+	public void setDate_ordered(String date_ordered) {
 		this.date_ordered = date_ordered;
 	}
 	public double getOrder_amount() {

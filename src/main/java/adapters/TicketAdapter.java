@@ -2,7 +2,7 @@ package adapters;
 
 import seating.Row;
 import seating.Seat;
-import thalia.ShowData;
+//import thalia.ShowData;
 import thalia.Ticket;
 
 public class TicketAdapter {
@@ -10,7 +10,7 @@ public class TicketAdapter {
 	double price;
 	String status;
 	String wid;
-	ShowData show_info;
+	ShowDataAdapter show_info;
 	PatronAdapter patron_info;
 	String sid;
 	String section_name;
@@ -21,7 +21,8 @@ public class TicketAdapter {
 //		this.status= ticket.getStatus();
 		this.status = ticket.getStatus().toString();
 		this.wid= ticket.getShow().getWid();
-		this.show_info= ticket.getShow().getShow_info();
+		this.show_info= new ShowDataAdapter(ticket.getShow().getShow_info());
+//		this.show_info= ticket.getShow().getShow_info();
 		this.patron_info= new PatronAdapter(ticket.getPatron_info());
 		this.sid= ticket.getSection().getSid();
 		this.section_name= ticket.getSection().getSection_name();
@@ -59,10 +60,10 @@ public class TicketAdapter {
 	public void setWid(String wid) {
 		this.wid = wid;
 	}
-	public ShowData getShow_info() {
+	public ShowDataAdapter getShow_info() {
 		return show_info;
 	}
-	public void setShow_info(ShowData show_info) {
+	public void setShow_info(ShowDataAdapter show_info) {
 		this.show_info = show_info;
 	}
 	public PatronAdapter getPatron_info() {

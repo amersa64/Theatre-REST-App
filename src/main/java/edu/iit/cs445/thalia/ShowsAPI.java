@@ -22,7 +22,9 @@ import org.json.simple.parser.ParseException;
 
 import seating.Section;
 import adapters.SectionAdapter;
-import adapters.SectionNameAdapter;
+import adapters.SectionPriceAdapter;
+//import testing.SSS;
+import mics.StaticSectionSetup;
 import thalia.Donation;
 import thalia.Patron;
 import thalia.Show;
@@ -33,7 +35,6 @@ import adapters.ShowAdapter;
 import adapters.ShowIDAdapter;
 import adapters.ShowSeatingAdapter;
 import adapters.ShowSectionAdapter;
-import mics.StaticSectionSetup;
 
 
 //Sets the path to base URL + /test
@@ -46,7 +47,7 @@ public class ShowsAPI {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response CreateShow(String json) throws ParseException{
 		if (json.equals(null)){
-			return Response.status(Response.Status.BAD_REQUEST).entity("Invalid Entry").build();
+			return Response.status(Response.Status.BAD_REQUEST).entity("Data is missing or Not Found").build();
 		}
 		StaticSectionSetup._init();
 		JSONParser parser = new JSONParser();
@@ -65,7 +66,7 @@ public class ShowsAPI {
 		LocalTime time = LocalTime.of(timetokens[0], timetokens[1], 0);
 		Section[] seating_info = new Section[seating_info_array.size()];
 		if (show_info_object.equals(null) || name.equals(null) || web.equals(null) || datestring.equals(null) || timestring.equals(null) || seating_info_array.equals(null)){
-			return Response.status(Response.Status.BAD_REQUEST).entity("Invalid Entry").build();
+			return Response.status(Response.Status.BAD_REQUEST).entity("Data is missing or Not Found").build();
 		}
 		
 		for (int i = 0; i < seating_info.length; i++){
@@ -74,43 +75,50 @@ public class ShowsAPI {
 			switch (sectionelement.get("sid").toString()){
 			case "123": //FIX Will change these values in the future
 				seating_info[i] = StaticSectionSetup.section_setup.get("Front right");
+//				seating_info[i] = SSS.getInstance().getSection_setup().get("Front right");
 				seating_info[i].setSid(sectionelement.get("sid").toString());
 				seating_info[i].setPrice(price);
 				break;
 			case "124":
 				seating_info[i] = StaticSectionSetup.section_setup.get("Front center");
+//				seating_info[i] = SSS.getInstance().getSection_setup().get("Front center");
 				seating_info[i].setSid(sectionelement.get("sid").toString());
 				seating_info[i].setPrice(price);
 				break;
 			case "125":
 				seating_info[i] = StaticSectionSetup.section_setup.get("Front left");
+//				seating_info[i] = SSS.getInstance().getSection_setup().get("Front left");
 				seating_info[i].setSid(sectionelement.get("sid").toString());
 				seating_info[i].setPrice(price);
 				break;
 			case "126":
 				seating_info[i] = StaticSectionSetup.section_setup.get("Main right");
+//				seating_info[i] = SSS.getInstance().getSection_setup().get("Main right");
 				seating_info[i].setSid(sectionelement.get("sid").toString());
 				seating_info[i].setPrice(price);
 				break;
 			case "127":
 				seating_info[i] = StaticSectionSetup.section_setup.get("Main center");
+//				seating_info[i] = SSS.getInstance().getSection_setup().get("Main center");
 				seating_info[i].setSid(sectionelement.get("sid").toString());
 				seating_info[i].setPrice(price);
 				break;
 			case "128":
 				seating_info[i] = StaticSectionSetup.section_setup.get("Main left");
+//				seating_info[i] = SSS.getInstance().getSection_setup().get("Main left");
 				seating_info[i].setSid(sectionelement.get("sid").toString());
 				seating_info[i].setPrice(price);
 				break;
 			default:
-				return Response.status(Response.Status.BAD_REQUEST).entity("Invalid Entry").build();
+				return Response.status(Response.Status.BAD_REQUEST).entity("Data is missing or Not Found").build();
 			}
 		}
 		
 		Show sh = new Show(time, date, seating_info, name, web);
 		Theatre.getInstance().getShows().add(sh);
 		ShowIDAdapter sida = new ShowIDAdapter(sh);
-		return Response.ok(sida).build();
+//		return Response.ok(sida).build();
+		return Response.status(Response.Status.CREATED).entity(sida).build();
 	}
 	
 	@PUT
@@ -118,7 +126,7 @@ public class ShowsAPI {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response UpdateShow(@PathParam("wid") String wid, String json) throws ParseException{
 		 if (wid.equals(null)){
-			 return Response.status(Response.Status.NOT_FOUND).entity("Invalid Entry").build();
+			 return Response.status(Response.Status.NOT_FOUND).entity("Not Found").build();
 		 }
 		 for (int j = 0; j < Theatre.getInstance().getShows().size(); j++){
 			 if (wid.equals(Theatre.getInstance().getShows().get(j).getWid())){
@@ -138,7 +146,7 @@ public class ShowsAPI {
 				LocalTime time = LocalTime.of(timetokens[0], timetokens[1], 0);
 				Section[] seating_info = new Section[seating_info_array.size()];
 				if (show_info_object.equals(null) || name.equals(null) || web.equals(null) || datestring.equals(null) || timestring.equals(null) || seating_info_array.equals(null)){
-					return Response.status(Response.Status.NOT_FOUND).entity("Invalid Entry").build();
+					return Response.status(Response.Status.NOT_FOUND).entity("Not Found").build();
 				}
 				
 				for (int i = 0; i < seating_info.length; i++){
@@ -147,21 +155,27 @@ public class ShowsAPI {
 					switch (sectionelement.get("sid").toString()){//FIX Will Change to our own values later
 					case "123":
 						seating_info[i] = StaticSectionSetup.section_setup.get("Front right");
+//						seating_info[i] = SSS.getInstance().getSection_setup().get("Front right");
 						break;
 					case "124":
 						seating_info[i] = StaticSectionSetup.section_setup.get("Front center");
+//						seating_info[i] = SSS.getInstance().getSection_setup().get("Front center");
 						break;
 					case "125":
 						seating_info[i] = StaticSectionSetup.section_setup.get("Front left");
+//						seating_info[i] = SSS.getInstance().getSection_setup().get("Front left");
 						break;
 					case "126":
 						seating_info[i] = StaticSectionSetup.section_setup.get("Main right");
+//						seating_info[i] = SSS.getInstance().getSection_setup().get("Main right");
 						break;
 					case "127":
 						seating_info[i] = StaticSectionSetup.section_setup.get("Main center");
+//						seating_info[i] = SSS.getInstance().getSection_setup().get("Main center");
 						break;
 					case "128":
 						seating_info[i] = StaticSectionSetup.section_setup.get("Main left");
+//						seating_info[i] = SSS.getInstance().getSection_setup().get("Main left");
 						break;
 					default:
 						break;
@@ -177,7 +191,7 @@ public class ShowsAPI {
 				return Response.ok().build();
 			 }
 		 }
-		 return Response.status(Response.Status.NOT_FOUND).entity("Invalid Entry").build();
+		 return Response.status(Response.Status.NOT_FOUND).entity("Not Found").build();
 	}
 	 
 	@GET
@@ -185,15 +199,15 @@ public class ShowsAPI {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response ViewShow(@PathParam("wid") String wid){
 		if (wid.equals(null)){
-			return Response.status(Response.Status.NOT_FOUND).entity("Invalid Entry").build();
+			return Response.status(Response.Status.NOT_FOUND).entity("Not Found").build();
 		}
 		for (Show show : Theatre.getInstance().getShows()){
 			if (show.getWid().equals(wid)){
 				ShowSeatingAdapter ssa = new ShowSeatingAdapter(show);
-				return Response.ok(ssa).build();
+				return Response.status(Response.Status.CREATED).entity(ssa).build();
 			}
 		}
-		return Response.status(Response.Status.NOT_FOUND).entity("Invalid Entry").build();
+		return Response.status(Response.Status.NOT_FOUND).entity("Not Found").build();
 	}
 	
 	@GET
@@ -213,18 +227,18 @@ public class ShowsAPI {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response ViewShowSections(@PathParam("wid") String wid){
 		if (wid.equals(null)){
-			return Response.status(Response.Status.NOT_FOUND).entity("Invalid Entry").build();
+			return Response.status(Response.Status.NOT_FOUND).entity("Not Found").build();
 		}
 		for (Show show : Theatre.getInstance().getShows()){
 			if (show.getWid().equals(wid)){
 				SectionAdapter[] saa = new SectionAdapter[show.getSeating_info().length];
 				for (int j = 0; j < saa.length; j++){
-					saa[j] = new SectionNameAdapter(show.getSeating_info()[j]);
+					saa[j] = new SectionPriceAdapter(show.getSeating_info()[j]);
 				}
 				return Response.ok(saa).build();
 			}
 		}
-		return Response.status(Response.Status.NOT_FOUND).entity("Invalid Entry").build();
+		return Response.status(Response.Status.NOT_FOUND).entity("Not Found").build();
 	}
 	
 	@GET
@@ -232,18 +246,18 @@ public class ShowsAPI {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response ViewSpecificSection(@PathParam("wid") String wid, @PathParam("sid") String sid){
 		if (wid.equals(null) || sid.equals(null)){
-			return Response.status(Response.Status.NOT_FOUND).entity("Invalid Entry").build();
+			return Response.status(Response.Status.NOT_FOUND).entity("Not Found").build();
 		}
 		for (Show show : Theatre.getInstance().getShows()){
 			if (show.getWid().equals(wid)){
 				ShowSectionAdapter ssa = new ShowSectionAdapter(show, sid);
 				if (ssa.getRows().equals(null)){
-					return Response.status(Response.Status.NOT_FOUND).entity("Invalid Entry").build();
+					return Response.status(Response.Status.NOT_FOUND).entity("Not Found").build();
 				}
 				return Response.ok(ssa).build();
 			}
 		}
-		return Response.status(Response.Status.NOT_FOUND).entity("Invalid Entry").build();
+		return Response.status(Response.Status.NOT_FOUND).entity("Not Found").build();
 	}
 	
 	@POST
@@ -251,7 +265,7 @@ public class ShowsAPI {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response RequestDonations(@PathParam("wid") String wid, String json) throws ParseException{
 		if (json.equals(null)){
-			return Response.status(Response.Status.NOT_FOUND).entity("Invalid Entry").build();
+			return Response.status(Response.Status.BAD_REQUEST).entity("Data is missing or Not Found").build();
 		}
 		JSONParser parser = new JSONParser();
 		JSONObject jsonObj = (JSONObject) parser.parse(json);
@@ -266,19 +280,19 @@ public class ShowsAPI {
 		String cc_expiration_date = (String) patron_info_object.get("cc_expiration_date");
 		Patron patron_info = new Patron(name, email, phone, billing_address, cc_number, cc_expiration_date);
 		if (patron_info_object.equals(null) || name.equals(null) || wid_from_object.equals(null) || count == 0 || phone.equals(null) || email.equals(null) || billing_address.equals(null) || cc_number.equals(null) || cc_expiration_date.equals(null)){
-			return Response.status(Response.Status.NOT_FOUND).entity("Invalid Entry").build();
+			return Response.status(Response.Status.BAD_REQUEST).entity("Data is missing or Not Found").build();
 		}
 		
-		for (int i = 0; i < Theatre.getInstance().getShows().size(); i++){
-			if (Theatre.getInstance().getShows().get(i).getWid().equals(wid) && wid.equals(wid_from_object)){
-				Show sh = Theatre.getInstance().getShows().get(i);//When passing show, I don't think it'll update the values whenever we change anything with it
+		for (Show show : Theatre.getInstance().getShows()) {
+			if (show.getWid().equals(wid) && wid.equals(wid_from_object)) {
+				Show sh = show;
 				Donation d = new Donation(count, sh, patron_info);
 				Theatre.getInstance().add(d);
 				DonationAdapter da = new DonationAdapter(d);
-				return Response.ok(da).build();
+				return Response.status(Response.Status.CREATED).entity(da).build();
 			}
 		}
-		return Response.status(Response.Status.NOT_FOUND).entity("Invalid Entry").build();
+		return Response.status(Response.Status.BAD_REQUEST).entity("Data is missing or Not Found").build();
 	}
 	
 	@GET
@@ -286,7 +300,7 @@ public class ShowsAPI {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getDonation(@PathParam("wid") String wid, @PathParam("did") String did){
 		if (wid.equals(null) || did.equals(null)){
-			return Response.status(Response.Status.NOT_FOUND).entity("Invalid Entry").build();
+			return Response.status(Response.Status.NOT_FOUND).entity("Not Found").build();
 		}
 		String wid_found = "";
 		for (Show show : Theatre.getInstance().getShows()){
@@ -302,7 +316,7 @@ public class ShowsAPI {
 				return Response.ok(daa).build();
 			}
 		}
-		return Response.status(Response.Status.NOT_FOUND).entity("Invalid Entry").build();
+		return Response.status(Response.Status.NOT_FOUND).entity("Not Found").build();
 	}
 	
 }

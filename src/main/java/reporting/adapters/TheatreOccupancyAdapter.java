@@ -1,6 +1,6 @@
 package reporting.adapters;
 
-import java.time.LocalDate;
+import java.text.DecimalFormat;
 import java.util.Arrays;
 
 import reporting.ShowOccupancyReport;
@@ -9,8 +9,8 @@ import reporting.TheatreOccupancyReport;
 public class TheatreOccupancyAdapter {
 	String mrid;
 	String name;
-	LocalDate startDate;
-	LocalDate endDate;
+	String startDate;
+	String endDate;
 	int total_shows;
 	int total_seats;
 	int sold_seats;
@@ -19,12 +19,40 @@ public class TheatreOccupancyAdapter {
 	public TheatreOccupancyAdapter(TheatreOccupancyReport tor){
 		this.mrid=String.valueOf(tor.getMrid());
 		this.name=tor.getName();
-		this.startDate=tor.getStartDate();
-		this.endDate=tor.getEndDate();
 		this.total_shows=tor.getShows().length;
 		this.total_seats=tor.getTotal_seats();
 		this.sold_seats=tor.getSold_seats();
-		this.overall_occupancy=tor.getOverall_occupancy()+"%";
+		DecimalFormat df = new DecimalFormat("#.##");
+		this.overall_occupancy = df.format(tor.getOverall_occupancy())+"%";
+		
+		if (tor.getStartDate() == null) {
+			this.startDate = "";
+		}
+		else {
+			int syear = tor.getStartDate().getYear();
+			int smonth = tor.getStartDate().getMonthValue();
+			int sday = tor.getStartDate().getDayOfMonth();
+			String styear = String.format("%04d", syear);
+			String stmonth = String.format("%02d", smonth);
+			String stday = String.format("%02d", sday);
+			this.startDate = (styear + "-" + stmonth + "-" + stday);
+//			this.startDate= trr.getStartDate().toString();
+		}
+		if (tor.getEndDate() == null) {
+			this.endDate = "";
+		}
+		else {
+			int eyear = tor.getEndDate().getYear();
+			int emonth = tor.getEndDate().getMonthValue();
+			int eday = tor.getEndDate().getDayOfMonth();
+			String enyear = String.format("%04d", eyear);
+			String enmonth = String.format("%02d", emonth);
+			String enday = String.format("%02d", eday);
+			this.endDate = (enyear + "-" + enmonth + "-" + enday);
+//			this.endDate = trr.getEndDate().toString();
+		}
+		
+		
 		this.shows= new MultiShowOccupancyAdapter[this.total_shows];
 		for(int i =0; i<this.total_shows;i++){
 			this.shows[i] = new MultiShowOccupancyAdapter((ShowOccupancyReport)tor.getShowsReports()[i]);
@@ -42,16 +70,16 @@ public class TheatreOccupancyAdapter {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public LocalDate getStartDate() {
+	public String getStartDate() {
 		return startDate;
 	}
-	public void setStartDate(LocalDate startDate) {
+	public void setStartDate(String startDate) {
 		this.startDate = startDate;
 	}
-	public LocalDate getEndDate() {
+	public String getEndDate() {
 		return endDate;
 	}
-	public void setEndDate(LocalDate endDate) {
+	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
 	public int getTotal_shows() {

@@ -20,15 +20,19 @@ public class SectionDonationReport extends SectionReport{
 		updateMetrics();
 	}
 	private void updateSectionTickets(){
+		this.section_tickets = new ArrayList<Ticket>();
 		for(Row row: section.getRows()){
 			for(Seat seat: row.getSeats()){
 				Ticket cid_ticket = Theatre.getInstance().findTicketByCid(seat.getCid());
-				if(!cid_ticket.equals(null))
+//				if(!cid_ticket.equals(null)){
+				if(cid_ticket != null){
 					section_tickets.add(cid_ticket);
-			}	
+				}
+			}
 		}
 	}
 	private void updateMetrics(){
+		if (this.section_tickets != null){
 		for(Ticket t: this.section_tickets){
 			if(t.isDonated()){
 				this.donated_tickets++;
@@ -37,6 +41,7 @@ public class SectionDonationReport extends SectionReport{
 					this.donated_and_used_value+=t.getPrice();
 				}
 			}
+		}
 		}
 	}
 	public ArrayList<Ticket> getSection_tickets() {
