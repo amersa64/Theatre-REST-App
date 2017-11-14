@@ -53,7 +53,20 @@ public class Order {
 		}
 		this.tickets = tickets;
 	}
-
+	public boolean checkOrder(Section section, Seat[] seats) {
+		boolean SeatsAreAvailable = false;
+		for(Seat seat: seats) {
+			SeatsAreAvailable = section.checkSeat(seat);
+			seat.setStatus(SeatStatus.sold);
+		}
+		if(SeatsAreAvailable) {
+			for(Seat seat: seats) {
+				section.update(seat);
+			}
+			return true;
+		}
+		return false;
+	}
 	public String getOid() {
 		return oid;
 	}

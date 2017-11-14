@@ -2,6 +2,8 @@ package seating;
 
 import java.util.Arrays;
 
+import seating.Seat.SeatStatus;
+
 //import testing.StaticSectionSetup;
 //import utility.SectionIDGenerator;
 
@@ -21,7 +23,26 @@ public class Section {
 		this.seating = ra;
 		this.price = 0;
 	}
-	
+	public boolean checkSeat(Seat seat) {
+		for(Row row: seating) {
+			for(Seat s: row.getSeats()) {
+				if(seat.getCid().equals(s.getCid()) && s.getStatus().equals(SeatStatus.available)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	public void update(Seat seat) {
+		for(Row row: seating) {
+			for(Seat s: row.getSeats()) {
+				if(seat.getCid().equals(s.getCid())) {
+					s = seat;
+					return;
+				}
+			}
+		}
+	}
 	public Section(String Name, double price, Row[] rows){
 		this.section_name = Name;
 		switch (Name) {
@@ -171,5 +192,19 @@ public class Section {
 	public String toString() {
 		return "Section [sid=" + sid + ", section_name=" + section_name + ", price="
 				+ price +  "\n seating=" + Arrays.toString(seating) +"]";
+	}
+	public boolean checkSeatsAvail(Seat[] seats) {
+		boolean SeatsAreAvailable = false;
+		for(Seat seat: seats) {
+			SeatsAreAvailable = checkSeat(seat);
+			seat.setStatus(SeatStatus.sold);
+		}
+		if(SeatsAreAvailable) {
+			for(Seat seat: seats) {
+				update(seat);
+			}
+			return true;
+		}
+		return false;
 	}	
 }
