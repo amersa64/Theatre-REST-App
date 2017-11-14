@@ -42,6 +42,9 @@ public class ReportsAPI {
 	@Path("/{mrid}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response GetReport(@PathParam("mrid") String mrid, @DefaultValue("") @QueryParam("show") String wid, @DefaultValue("") @QueryParam("start_date") String start_date, @DefaultValue("")  @QueryParam("end_date") String end_date){
+		if (!start_date.equals("") && !end_date.equals("") && !wid.equals("")){
+			return Response.status(Response.Status.NOT_FOUND).entity("Not Found").build();
+		}
 		if (start_date.equals("") && end_date.equals("") && wid.equals("")){
 			switch (mrid){
 			case "801":
@@ -65,12 +68,12 @@ public class ReportsAPI {
 			
 			for (Show show : Theatre.getInstance().getShows()){
 				if (show.getWid().equals(wid)){
+					System.out.println("HII");
 					Show sh = show;
 					switch (mrid){
 					case "801":
 						TheatreOccupancyReport tor = new TheatreOccupancyReport(sh);
 						TheatreShowOccupancyAdapter tsoa = new TheatreShowOccupancyAdapter(tor);
-						
 						return Response.ok(tsoa).build();
 					case "802":
 						TheatreRevenueReport trr = new TheatreRevenueReport(sh);

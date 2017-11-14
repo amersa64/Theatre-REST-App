@@ -18,22 +18,26 @@ public class TheatreShowRevenueAdapter {
 	public TheatreShowRevenueAdapter(TheatreRevenueReport trr){
 		this.mrid=String.valueOf(trr.getMrid());
 		this.name=trr.getName();
-		int syear = trr.getStartDate().getYear();
-		int smonth = trr.getStartDate().getMonthValue();
-		int sday = trr.getStartDate().getDayOfMonth();
-		int eyear = trr.getEndDate().getYear();
-		int emonth = trr.getEndDate().getMonthValue();
-		int eday = trr.getEndDate().getDayOfMonth();	
-		String styear = String.format("%04d", syear);
-		String stmonth = String.format("%02d", smonth);
-		String stday = String.format("%02d", sday);
-		String enyear = String.format("%04d", eyear);
-		String enmonth = String.format("%02d", emonth);
-		String enday = String.format("%02d", eday);
-		this.startDate = (styear + "-" + stmonth + "-" + stday);
-		this.endDate = (enyear + "-" + enmonth + "-" + enday);
-//		this.startDate=trr.getStartDate();
-//		this.endDate=trr.getEndDate();
+		if (trr.getStartDate() != null && trr.getEndDate() != null) {
+			int syear = trr.getStartDate().getYear();
+			int smonth = trr.getStartDate().getMonthValue();
+			int sday = trr.getStartDate().getDayOfMonth();
+			int eyear = trr.getEndDate().getYear();
+			int emonth = trr.getEndDate().getMonthValue();
+			int eday = trr.getEndDate().getDayOfMonth();	
+			String styear = String.format("%04d", syear);
+			String stmonth = String.format("%02d", smonth);
+			String stday = String.format("%02d", sday);
+			String enyear = String.format("%04d", eyear);
+			String enmonth = String.format("%02d", emonth);
+			String enday = String.format("%02d", eday);
+			this.startDate = (styear + "-" + stmonth + "-" + stday);
+			this.endDate = (enyear + "-" + enmonth + "-" + enday);
+		}
+		else {
+			this.startDate= "";
+			this.endDate= "";
+		}
 		this.total_shows=1;
 		this.total_seats=trr.getTotal_seats();
 		this.sold_seats=trr.getSold_seats();

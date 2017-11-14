@@ -19,6 +19,7 @@ C:\cygwin64\home\Alrick\Theatre-REST-App\src\main\java\utility\OrderIDGenerator.
 C:\cygwin64\home\Alrick\Theatre-REST-App\src\main\java\utility\ShowIDGenerator.java
 C:\cygwin64\home\Alrick\Theatre-REST-App\src\main\java\adapters\OrderConfirmAdapter.java
 C:\cygwin64\home\Alrick\Theatre-REST-App\src\main\java\thalia\Show.java
+C:\cygwin64\home\Alrick\Theatre-REST-App\src\main\java\adapters\FailedSeatRequestAdapter.java
 C:\cygwin64\home\Alrick\Theatre-REST-App\src\main\java\reporting\adapters\SectionRevenueApdater.java
 C:\cygwin64\home\Alrick\Theatre-REST-App\src\main\java\adapters\SectionNameAdapter.java
 C:\cygwin64\home\Alrick\Theatre-REST-App\src\main\java\reporting\TheatreDonationReport.java

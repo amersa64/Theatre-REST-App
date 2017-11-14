@@ -204,7 +204,7 @@ public class ShowsAPI {
 		for (Show show : Theatre.getInstance().getShows()){
 			if (show.getWid().equals(wid)){
 				ShowSeatingAdapter ssa = new ShowSeatingAdapter(show);
-				return Response.status(Response.Status.CREATED).entity(ssa).build();
+				return Response.ok(ssa).build();
 			}
 		}
 		return Response.status(Response.Status.NOT_FOUND).entity("Not Found").build();

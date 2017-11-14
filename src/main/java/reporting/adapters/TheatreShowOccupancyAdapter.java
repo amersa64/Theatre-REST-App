@@ -16,25 +16,29 @@ public class TheatreShowOccupancyAdapter {
 	String overall_occupancy;
 	SingleShowOccupancyAdapter[] shows;
 	public TheatreShowOccupancyAdapter(TheatreOccupancyReport tor){
+		System.out.println("In the system");
 		this.mrid=String.valueOf(tor.getMrid());
 		this.name=tor.getName();
-		int syear = tor.getStartDate().getYear();
-		int smonth = tor.getStartDate().getMonthValue();
-		int sday = tor.getStartDate().getDayOfMonth();
-		int eyear = tor.getEndDate().getYear();
-		int emonth = tor.getEndDate().getMonthValue();
-		int eday = tor.getEndDate().getDayOfMonth();	
-		String styear = String.format("%04d", syear);
-		String stmonth = String.format("%02d", smonth);
-		String stday = String.format("%02d", sday);
-		String enyear = String.format("%04d", eyear);
-		String enmonth = String.format("%02d", emonth);
-		String enday = String.format("%02d", eday);
-		this.startDate = (styear + "-" + stmonth + "-" + stday);
-		this.endDate = (enyear + "-" + enmonth + "-" + enday);
-		
-//		this.startDate=tor.getStartDate();
-//		this.endDate=tor.getEndDate();
+		if (tor.getStartDate() != null && tor.getEndDate() != null) {
+			int syear = tor.getStartDate().getYear();
+			int smonth = tor.getStartDate().getMonthValue();
+			int sday = tor.getStartDate().getDayOfMonth();
+			int eyear = tor.getEndDate().getYear();
+			int emonth = tor.getEndDate().getMonthValue();
+			int eday = tor.getEndDate().getDayOfMonth();	
+			String styear = String.format("%04d", syear);
+			String stmonth = String.format("%02d", smonth);
+			String stday = String.format("%02d", sday);
+			String enyear = String.format("%04d", eyear);
+			String enmonth = String.format("%02d", emonth);
+			String enday = String.format("%02d", eday);
+			this.startDate = (styear + "-" + stmonth + "-" + stday);
+			this.endDate = (enyear + "-" + enmonth + "-" + enday);
+		}
+		else {
+			this.startDate= "";
+			this.endDate= "";
+		}
 		this.total_shows=tor.getShows().length;
 		this.total_seats=tor.getTotal_seats();
 		this.sold_seats=tor.getSold_seats();

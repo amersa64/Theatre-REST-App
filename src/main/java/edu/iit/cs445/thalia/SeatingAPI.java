@@ -9,6 +9,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import adapters.FailedSeatRequestAdapter;
 import adapters.RowAvailAdapter;
 import adapters.SeatRequestAdapter;
 import adapters.SectionNameAdapter;
@@ -55,7 +56,13 @@ public class SeatingAPI {
 						raa = new RowAvailAdapter(row);
 					}
 					SeatRequestAdapter sra = new SeatRequestAdapter(sh, s, raa, count);
-					return Response.ok(sra).build();
+					if (sra.getTotal_amount() == 0) {
+						FailedSeatRequestAdapter fsra = new FailedSeatRequestAdapter(sra);
+						return Response.ok(fsra).build();
+					}
+					else {
+						return Response.ok(sra).build();
+					}
 				}
 			}
 		}

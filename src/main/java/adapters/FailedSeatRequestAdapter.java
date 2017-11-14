@@ -2,34 +2,24 @@ package adapters;
 
 import java.util.ArrayList;
 
-import seating.Section;
-import thalia.Show;
 
-public class SeatRequestAdapter extends ShowAdapter {
+public class FailedSeatRequestAdapter {
+	String wid;
+	ShowDataAdapter show_info;
 	String sid;
 	String section_name;
 	String starting_seat_id;
 	String status;
-	double total_amount;
 	ArrayList<RowAvailAdapter> seating;
-	public SeatRequestAdapter(Show show,Section section, RowAvailAdapter seats, int count) { //Changed from Row to RowAdapter (Enums)
-		super(show);
-		this.sid=section.getSid();
-		this.section_name= section.getSection_name();
-		
-		if(seats != null){
-			this.status="ok";
-			this.starting_seat_id = seats.getSeats()[0].getCid();
-			this.seating = new ArrayList<RowAvailAdapter>();
-			this.seating.add(seats);
-			this.total_amount = section.getPrice()*count; //Was added in
-		}else{
-			this.status="Error: "+ count+ " contiguous seats not available";
-			this.starting_seat_id = section.getRows()[0].getSeats()[0].getCid();
-			this.seating = new ArrayList<RowAvailAdapter>();
-			this.total_amount = 0;
-//			this.seating[0] = null; // Need to print out an array?
-		}
+	
+	public FailedSeatRequestAdapter(SeatRequestAdapter sra) { //Changed from Row to RowAdapter (Enums)
+		this.sid=sra.getSid();
+		this.section_name= sra.getSection_name();
+		this.status= sra.getStatus();
+		this.starting_seat_id = sra.getSid();
+		this.seating = sra.getSeating();
+		this.wid = sra.getWid();
+		this.show_info = sra.getShow_info();
 	}
 	public String getSid() {
 		return sid;
@@ -55,17 +45,23 @@ public class SeatRequestAdapter extends ShowAdapter {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public double getTotal_amount() {
-		return total_amount;
-	}
-	public void setTotal_amount(double total_amount) {
-		this.total_amount = total_amount;
-	}
 	public ArrayList<RowAvailAdapter> getSeating() {
 		return seating;
 	}
 	public void setSeating(ArrayList<RowAvailAdapter> seating) {
 		this.seating = seating;
+	}
+	public String getWid() {
+		return wid;
+	}
+	public void setWid(String wid) {
+		this.wid = wid;
+	}
+	public ShowDataAdapter getShow_info() {
+		return show_info;
+	}
+	public void setShow_info(ShowDataAdapter show_info) {
+		this.show_info = show_info;
 	}
 	@Override
 	public int hashCode() {
@@ -76,9 +72,6 @@ public class SeatRequestAdapter extends ShowAdapter {
 		result = prime * result + ((sid == null) ? 0 : sid.hashCode());
 		result = prime * result + ((starting_seat_id == null) ? 0 : starting_seat_id.hashCode());
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
-		long temp;
-		temp = Double.doubleToLongBits(total_amount);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
 		return result;
 	}
 	@Override
@@ -89,7 +82,7 @@ public class SeatRequestAdapter extends ShowAdapter {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		SeatRequestAdapter other = (SeatRequestAdapter) obj;
+		FailedSeatRequestAdapter other = (FailedSeatRequestAdapter) obj;
 		if (seating == null) {
 			if (other.seating != null)
 				return false;
@@ -115,16 +108,14 @@ public class SeatRequestAdapter extends ShowAdapter {
 				return false;
 		} else if (!status.equals(other.status))
 			return false;
-		if (Double.doubleToLongBits(total_amount) != Double.doubleToLongBits(other.total_amount))
-			return false;
 		return true;
 	}
+	
 	@Override
 	public String toString() {
-		return "SeatRequestAdapter [sid=" + sid + ", section_name=" + section_name + ", starting_seat_id="
-				+ starting_seat_id + ", status=" + status + ", total_amount=" + total_amount + ", seating=" + seating
-				+ "]";
+		return "SeatRequestAdapter [wid=" + wid + ", sid=" + sid + ", section_name=" + section_name + ", starting_seat_id="
+				+ starting_seat_id + ", status=" + status + ", seating=" + seating
+				+ "show_info=" + show_info.toString() + "]";
 	}
 	
-
 }
