@@ -2,8 +2,6 @@ package testing;
 
 import static org.junit.Assert.*;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 
 import org.junit.After;
 import org.junit.Test;
@@ -18,16 +16,6 @@ import thalia.Show;
 import thalia.Theatre;
 
 public class TestContigiousSeatRequest {
-	public static LocalDate randomDate(){
-		int month =(int) Math.floor(Math.random()*12);
-		int day = (int) Math.floor(Math.random()*30);
-		return LocalDate.of(2017,++month,++day);
-	}
-	public static LocalTime randomTime(){
-		int minute = (int) Math.floor(Math.random()*4)*15;
-		int hour = (int) Math.floor(Math.random()*24);
-		return LocalTime.of(hour++, minute++);
-	}
 
 	@After
 	public void tearDown() throws Exception {
@@ -142,7 +130,7 @@ public class TestContigiousSeatRequest {
 		assertEquals(sra.getSeating().get(0).getSeats()[1].getCid(), "60");
 		assertEquals(sra.getStatus(),"ok");
 		assertEquals(sra.getStarting_seat_id(),"59");
-		assertTrue(sra.getTotal_amount()!=0);
+		assertNotEquals(sra.getTotal_amount(),0);
 	}
 	@Test
 	public void testRequestSeatsWithStartingCid() {
@@ -168,7 +156,7 @@ public class TestContigiousSeatRequest {
 		assertEquals(sra.getSeating().get(0).getRow(), "7");
 		assertEquals(sra.getStatus(),"ok");
 		assertEquals(sra.getStarting_seat_id(),"60");
-		assertTrue(sra.getTotal_amount()!=0);
+		assertNotEquals(sra.getTotal_amount(),0);
 	}
 	@Test
 	public void testNullRequestSeatsWithStartingCid() {
@@ -192,7 +180,7 @@ public class TestContigiousSeatRequest {
 		assertTrue(sra.getSeating().isEmpty());
 		assertNotEquals(sra.getStatus(),"ok");
 		assertEquals(sra.getStarting_seat_id(),"60");
-		assertTrue(sra.getTotal_amount()==0);
+		assertEquals(sra.getTotal_amount(), 0.0, 0);
 	}
 	
 
