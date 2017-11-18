@@ -41,10 +41,10 @@ public class ShowSectionAdapter extends ShowAdapter {
 	public void setSection_name(String section_name) {
 		this.section_name = section_name;
 	}
-	public RowAvailAdapter[] getRows() {
+	public RowAvailAdapter[] getSeating() {
 		return seating;
 	}
-	public void setRows(RowAvailAdapter[] seating) {
+	public void setSeating(RowAvailAdapter[] seating) {
 		this.seating = seating;
 	}
 	@Override

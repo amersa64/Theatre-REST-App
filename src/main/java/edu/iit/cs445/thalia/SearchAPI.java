@@ -11,7 +11,9 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import adapters.OrderAdapter;
+import adapters.OrderSearchAdapter;
 import adapters.ShowAdapter;
+import adapters.ShowSearchAdapter;
 import thalia.Order;
 import thalia.Show;
 import thalia.Theatre;
@@ -41,7 +43,8 @@ public class SearchAPI {
 							}
 						}
 					}
-					return Response.ok(showList).build();
+					ShowSearchAdapter ssa = new ShowSearchAdapter(showList);
+					return Response.ok(ssa).build();
 				case "order":
 					ArrayList<OrderAdapter> orderList = new ArrayList<OrderAdapter>();
 					if (key.equals("")){
@@ -58,7 +61,8 @@ public class SearchAPI {
 							}
 						}
 					}
-					return Response.ok(orderList).build();
+					OrderSearchAdapter osa = new OrderSearchAdapter(orderList);
+					return Response.ok(osa).build();
 				default: 
 					return Response.status(Response.Status.NOT_FOUND).entity("Not Found").build();
 			}

@@ -60,7 +60,6 @@ public class TicketsAPI {
 	@Path("/donations")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response DonateTicket(String json) throws ParseException {
-		int count = 0;
 		if (json.equals(null)){
 			return Response.status(Response.Status.BAD_REQUEST).entity("Data is missing or Not Found").build();
 		}
@@ -71,19 +70,25 @@ public class TicketsAPI {
 		for (int i = 0; i < ticketIds.length; i++) {
 			ticketIds[i] = (String) jsonArray.get(i);
 		}
-		
-		for (int j = 0; j < ticketIds.length; j++) {
-			for (Ticket ticketlist : Theatre.getInstance().getTickets()) {
-				if (ticketlist.getTid().equals(ticketIds[j])) {
-					count++;
-//					ticketlist.setDonated(true);
-					Theatre.getInstance().addD(ticketlist);
-					if (count == ticketIds.length) {
-						return Response.ok().build();
-					}
-				}
-			}
+		boolean success = false;
+		for(String tid: ticketIds) {
+			success =Theatre.getInstance().donateTicketByTid(tid);
 		}
+		if(success) 
+			return Response.ok().build();
+		
+//		for (int j = 0; j < ticketIds.length; j++) {
+//			for (Ticket ticketlist : Theatre.getInstance().getTickets()) {
+//				if (ticketlist.getTid().equals(ticketIds[j])) {
+//					count++;
+////					ticketlist.setDonated(true);
+//					Theatre.getInstance().addD(ticketlist);
+//					if (count == ticketIds.length) {
+//						return Response.ok().build();
+//					}
+//				}
+//			}
+//		}
 		return Response.status(Response.Status.BAD_REQUEST).entity("Data is missing or Not Found").build();
 	}
 	

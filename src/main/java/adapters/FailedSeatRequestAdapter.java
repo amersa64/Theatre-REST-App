@@ -16,7 +16,7 @@ public class FailedSeatRequestAdapter {
 		this.sid=sra.getSid();
 		this.section_name= sra.getSection_name();
 		this.status= sra.getStatus();
-		this.starting_seat_id = sra.getSid();
+		this.starting_seat_id = sra.getStarting_seat_id();
 		this.seating = sra.getSeating();
 		this.wid = sra.getWid();
 		this.show_info = sra.getShow_info();

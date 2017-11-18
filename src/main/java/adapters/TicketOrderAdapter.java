@@ -7,7 +7,10 @@ public class TicketOrderAdapter {
 	String status;
 	public TicketOrderAdapter(Ticket ticket){
 		this.tid=ticket.getTid();
-		this.status = ticket.getStatus().toString();
+		if(ticket.isDonated())
+			this.status= "donated";
+		else
+			this.status = ticket.getStatus().toString();
 	}
 	public String getTid() {
 		return tid;

@@ -24,7 +24,10 @@ public class StaticSectionSetup {
 		JSONParser parser = new JSONParser();
 		section_setup = new HashMap<>();
         try {     
-            Object obj = parser.parse(new FileReader("src\\main\\resources\\project-test-theatre-seating.json"));
+        	//Object obj = parser.parse(new FileReader("src\\main\\resources\\project-test-theatre-seating.json"));
+            //Object obj = parser.parse(new FileReader("C:\\Users\\Alrick\\workspace\\edu.iit.cs445.thalia\\src\\resources\\project-test-theatre-seating.json"));
+            Object obj = parser.parse(new FileReader("../Theatre-REST-App/src/main/resources/project-test-theatre-seating.json"));
+        	
             JSONArray arrayJSON =  (JSONArray) obj;
             for(int i=0; i <arrayJSON.size();i++){
             	JSONObject section = (JSONObject) arrayJSON.get(i);
@@ -65,6 +68,9 @@ public class StaticSectionSetup {
 		TicketIDGenerator.reset();
 		ShowIDGenerator.reset();
 		OrderIDGenerator.reset();
+	}
+	public static void revertCid() {
+		SeatIDGenerator.revert();
 	}
 	public static JSONArray staticReportSetup(){
 		JSONParser parser = new JSONParser();

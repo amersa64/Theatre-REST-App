@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 import seating.Section;
+import thalia.Donation.DonationStatus;
 
 public class Theatre {
 	private static Theatre instance = null;
@@ -30,13 +31,24 @@ public class Theatre {
 		}
 		return null;
 	}
-	public void donateTicketByTid(String tid) {
+	private void updateOrder(Ticket ticket) {
+		for(Order ord: this.orders) {
+			for(Ticket t: ord.getTickets()) {
+				if(t.getTid().equals(ticket.getTid()))
+					t=ticket;
+			}
+		}
+	}
+	public boolean donateTicketByTid(String tid) {
 		for(Ticket t: this.tickets) {
 			if(t.getTid().equals(tid)) {
 				t.setDonated(true);
+				updateOrder(t);
 				addD(t);
+				return true;
 			}	
 		}
+		return false;
 	}
 	public void updateDonations(){
 		Queue<Donation> temp = new LinkedList<>();
@@ -45,6 +57,7 @@ public class Theatre {
 			Donation donR = donationsRequest.poll();
 			if(donR.tryAssignTicket()){
 				assignedDonation = donR;
+				assignedDonation.setStatus(DonationStatus.assigned);
 			}else{
 				temp.add(donR);
 			}

@@ -12,20 +12,26 @@ public class SeatRequestAdapter extends ShowAdapter {
 	String status;
 	double total_amount;
 	ArrayList<RowAvailAdapter> seating;
-	public SeatRequestAdapter(Show show,Section section, RowAvailAdapter seats, int count) { //Changed from Row to RowAdapter (Enums)
+	public SeatRequestAdapter(Show show,Section section,String starting_seat_id, RowAvailAdapter seats, int count) { //Changed from Row to RowAdapter (Enums)
 		super(show);
 		this.sid=section.getSid();
 		this.section_name= section.getSection_name();
 		
 		if(seats != null){
 			this.status="ok";
-			this.starting_seat_id = seats.getSeats()[0].getCid();
+			if(starting_seat_id.equals(""))
+				this.starting_seat_id = seats.getSeats()[0].getCid();
+			else
+				this.starting_seat_id =starting_seat_id;
 			this.seating = new ArrayList<RowAvailAdapter>();
 			this.seating.add(seats);
 			this.total_amount = section.getPrice()*count; //Was added in
 		}else{
 			this.status="Error: "+ count+ " contiguous seats not available";
-			this.starting_seat_id = section.getRows()[0].getSeats()[0].getCid();
+			if(starting_seat_id.equals(""))
+				this.starting_seat_id = section.getRows()[0].getSeats()[0].getCid();
+			else
+				this.starting_seat_id =starting_seat_id;
 			this.seating = new ArrayList<RowAvailAdapter>();
 			this.total_amount = 0;
 //			this.seating[0] = null; // Need to print out an array?

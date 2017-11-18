@@ -53,6 +53,7 @@ public class Order {
 		}
 		this.tickets = tickets;
 	}
+
 	public boolean checkOrder(Section section, Seat[] seats) {
 		boolean SeatsAreAvailable = false;
 		for(Seat seat: seats) {

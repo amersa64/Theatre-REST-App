@@ -7,8 +7,8 @@ import thalia.Patron;
 
 public class PatronAdapter {
 	String name;
-	String email;
 	String phone;
+	String email;
 	String billing_address;
 	String cc_number;
 	String cc_expiration_date;

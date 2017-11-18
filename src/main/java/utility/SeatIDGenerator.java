@@ -20,4 +20,7 @@ public class SeatIDGenerator {
 		}
 		return instance;
 	}
+	public static void revert() {
+		getInstance().idCounter -= 102;
+	}
 }

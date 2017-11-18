@@ -23,6 +23,7 @@ import org.json.simple.parser.ParseException;
 import seating.Section;
 import adapters.SectionAdapter;
 import adapters.SectionPriceAdapter;
+import adapters.PutAdapter;
 //import testing.SSS;
 import mics.StaticSectionSetup;
 import thalia.Donation;
@@ -178,17 +179,17 @@ public class ShowsAPI {
 //						seating_info[i] = SSS.getInstance().getSection_setup().get("Main left");
 						break;
 					default:
-						break;
+						return Response.status(Response.Status.NOT_FOUND).entity("Not Found").build();
 					}
-					seating_info[i].setSid(sectionelement.get("sid").toString());
-					seating_info[i].setPrice(price);
+					Theatre.getInstance().getShows().get(j).getSeating_info()[i].setSid(sectionelement.get("sid").toString());
+					Theatre.getInstance().getShows().get(j).getSeating_info()[i].setPrice(price);
 				}
 				Theatre.getInstance().getShows().get(j).setName(name);
 				Theatre.getInstance().getShows().get(j).setDate(date);
-				Theatre.getInstance().getShows().get(j).setSeating_info(seating_info);
 				Theatre.getInstance().getShows().get(j).setTime(time);
 				Theatre.getInstance().getShows().get(j).setWeb(web);;
-				return Response.ok().build();
+				PutAdapter pa = new PutAdapter();
+				return Response.ok(pa).build();
 			 }
 		 }
 		 return Response.status(Response.Status.NOT_FOUND).entity("Not Found").build();
@@ -251,7 +252,7 @@ public class ShowsAPI {
 		for (Show show : Theatre.getInstance().getShows()){
 			if (show.getWid().equals(wid)){
 				ShowSectionAdapter ssa = new ShowSectionAdapter(show, sid);
-				if (ssa.getRows().equals(null)){
+				if (ssa.getSeating().equals(null)){
 					return Response.status(Response.Status.NOT_FOUND).entity("Not Found").build();
 				}
 				return Response.ok(ssa).build();
@@ -285,8 +286,7 @@ public class ShowsAPI {
 		
 		for (Show show : Theatre.getInstance().getShows()) {
 			if (show.getWid().equals(wid) && wid.equals(wid_from_object)) {
-				Show sh = show;
-				Donation d = new Donation(count, sh, patron_info);
+				Donation d = new Donation(count, show, patron_info);
 				Theatre.getInstance().add(d);
 				DonationAdapter da = new DonationAdapter(d);
 				return Response.status(Response.Status.CREATED).entity(da).build();

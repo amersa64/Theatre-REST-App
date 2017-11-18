@@ -50,6 +50,8 @@ reporting\ShowRevenueReport.class
 utility\SectionIDGenerator.class
 edu\iit\cs445\thalia\SearchAPI.class
 adapters\SectionPriceAdapter.class
+adapters\OrderSearchAdapter.class
+adapters\ShowSearchAdapter.class
 adapters\SectionNumberAdapter.class
 utility\OrderIDGenerator.class
 seating\Row.class
@@ -66,6 +68,7 @@ adapters\RowNumberAdapter.class
 adapters\ShowSeatingAdapter.class
 edu\iit\cs445\thalia\SeatingAPI.class
 reporting\adapters\TheatreShowOccupancyAdapter.class
+adapters\PutAdapter.class
 adapters\RowAdapter.class
 adapters\SectionNameAdapter.class
 adapters\ShowSectionAdapter.class

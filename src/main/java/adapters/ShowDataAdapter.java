@@ -5,8 +5,9 @@ import thalia.ShowData;
 public class ShowDataAdapter {
 	private String name;
 	private String web;
-	private String time;
 	private String date;
+	private String time;
+	
 
 	public ShowDataAdapter(ShowData sd){
 		int iyear = sd.getDate().getYear();
@@ -29,8 +30,8 @@ public class ShowDataAdapter {
 		
 		this.time = (hour + ":" + minute);
 		this.date = (year + "-" + month + "-" + day);
-		this.name= sd.getWeb();
-		this.web= sd.getName();
+		this.name= sd.getName();
+		this.web= sd.getWeb();
 		
 	}
 	public ShowDataAdapter(String name, String web, String time, String date) {

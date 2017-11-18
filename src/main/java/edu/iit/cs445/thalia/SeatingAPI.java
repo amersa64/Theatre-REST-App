@@ -29,16 +29,16 @@ public class SeatingAPI {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response RequestSeats(@DefaultValue("") @QueryParam("show") String wid, @DefaultValue("") @QueryParam("section") String sid, @DefaultValue("0") @QueryParam("count") int count, @DefaultValue("") @QueryParam("starting_seat_id") String cid){
-		StaticSectionSetup._init();
+//		StaticSectionSetup._init();
 		if (wid.equals("") && sid.equals("") && cid.equals("")){
-//			StaticSectionSetup._init();
-			SectionNameAdapter[] sna = new SectionNameAdapter[6];
-			sna[0] = new SectionNameAdapter(StaticSectionSetup.section_setup.get("Front right"));
-			sna[1] = new SectionNameAdapter(StaticSectionSetup.section_setup.get("Front center"));
-			sna[2] = new SectionNameAdapter(StaticSectionSetup.section_setup.get("Front left"));
-			sna[3] = new SectionNameAdapter(StaticSectionSetup.section_setup.get("Main right"));
-			sna[4] = new SectionNameAdapter(StaticSectionSetup.section_setup.get("Main center"));
-			sna[5] = new SectionNameAdapter(StaticSectionSetup.section_setup.get("Main left"));
+			//StaticSectionSetup._init();
+			SectionNameAdapter[] sna = new SectionNameAdapter[6];			
+			sna[0] = new SectionNameAdapter("123", "Front right");
+			sna[1] = new SectionNameAdapter("124", "Front center");
+			sna[2] = new SectionNameAdapter("125", "Front left");
+			sna[3] = new SectionNameAdapter("126", "Main right");
+			sna[4] = new SectionNameAdapter("127", "Main center");
+			sna[5] = new SectionNameAdapter("128", "Main left");
 			return Response.ok(sna).build();
 		}
 		if (!wid.equals("") && !sid.equals("") && count!=0 && cid.equals("")){
@@ -55,7 +55,7 @@ public class SeatingAPI {
 					if (row != null){
 						raa = new RowAvailAdapter(row);
 					}
-					SeatRequestAdapter sra = new SeatRequestAdapter(sh, s, raa, count);
+					SeatRequestAdapter sra = new SeatRequestAdapter(sh, s,cid, raa, count);
 					if (sra.getTotal_amount() == 0) {
 						FailedSeatRequestAdapter fsra = new FailedSeatRequestAdapter(sra);
 						return Response.ok(fsra).build();
@@ -79,7 +79,7 @@ public class SeatingAPI {
 								if (r != null){
 									raa = new RowAvailAdapter(r);
 								}
-								SeatRequestAdapter sra = new SeatRequestAdapter(sh, s, raa, count);
+								SeatRequestAdapter sra = new SeatRequestAdapter(sh, s,cid, raa, count);
 								return Response.ok(sra).build();
 							}
 						}
@@ -94,26 +94,35 @@ public class SeatingAPI {
 	@Path("/{sid}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response ViewSpecificSeats(@PathParam("sid") String sid) {
-		StaticSectionSetup._init();
+		StaticSectionSetup._init();//
+		StaticSectionSetup.revertCid();
 		SectionNumberAdapter sna;
+		//int convertSID = 0;
 		switch (sid){
 		case "123":
 			sna = new SectionNumberAdapter(StaticSectionSetup.section_setup.get("Front right"));
+			sna.setSid(sid);
 			return Response.ok(sna).build();
+			
 		case "124":
 			sna = new SectionNumberAdapter(StaticSectionSetup.section_setup.get("Front center"));
+			sna.setSid(sid);
 			return Response.ok(sna).build();
 		case "125":
 			sna = new SectionNumberAdapter(StaticSectionSetup.section_setup.get("Front left"));
+			sna.setSid(sid);
 			return Response.ok(sna).build();
 		case "126":
 			sna = new SectionNumberAdapter(StaticSectionSetup.section_setup.get("Main right"));
+			sna.setSid(sid);
 			return Response.ok(sna).build();
 		case "127":
 			sna = new SectionNumberAdapter(StaticSectionSetup.section_setup.get("Main center"));
+			sna.setSid(sid);
 			return Response.ok(sna).build();
 		case "128":
 			sna = new SectionNumberAdapter(StaticSectionSetup.section_setup.get("Main left"));
+			sna.setSid(sid);
 			return Response.ok(sna).build();
 		default:
 			return Response.status(Response.Status.NOT_FOUND).entity("Not Found").build();
