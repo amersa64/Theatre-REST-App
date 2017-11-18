@@ -66,7 +66,7 @@ public class TestTheatreGenerator {
 		thalia.add(show0);
 		thalia.add(show1);
 		ArrayList<Show> result= thalia.getShowsBetweenDates(startDate, endDate);
-		assertTrue(result.size()==1);
+		assertEquals(result.size(),1);
 		assertTrue(result.get(0).equals(show0));
 		
 	}

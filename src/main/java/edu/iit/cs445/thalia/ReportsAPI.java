@@ -31,11 +31,7 @@ public class ReportsAPI {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response GetListOfAvailableReports(){
-		TheatreAdapter[] ta = new TheatreAdapter[3];
-		ta[0] = new TheatreAdapter("801", "Theatre occupancy");
-		ta[1] = new TheatreAdapter("802", "Revenue from ticket sales");
-		ta[2] = new TheatreAdapter("803", "Donated tickets report");
-		return Response.ok(ta).build();
+		return Response.ok(TheatreAdapter.staticReports()).build();
 	}
 	
 	@GET
@@ -68,7 +64,6 @@ public class ReportsAPI {
 			
 			for (Show show : Theatre.getInstance().getShows()){
 				if (show.getWid().equals(wid)){
-					System.out.println("HII");
 					Show sh = show;
 					switch (mrid){
 					case "801":

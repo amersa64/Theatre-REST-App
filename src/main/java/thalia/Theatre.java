@@ -1,11 +1,16 @@
 package thalia;
 import java.time.LocalDate;
 import java.util.Queue;
+
+
+import adapters.TicketOrderAdapter;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 
 import seating.Section;
 import thalia.Donation.DonationStatus;
+import thalia.Ticket.TicketStatus;
 
 public class Theatre {
 	private static Theatre instance = null;
@@ -27,6 +32,22 @@ public class Theatre {
 	public Ticket findTicketByCid(String cid){
 		for(Ticket ticket: this.tickets){
 			if(ticket.getSeat().getCid().equals(cid))
+				return ticket;
+		}
+		return null;
+	}
+	public TicketOrderAdapter updateTicketByTid(String tid) {
+		Ticket ticket = findTicketByTid(tid);
+		TicketOrderAdapter toa =null;
+		if(ticket !=null) {
+			ticket.setStatus(TicketStatus.used);
+			toa= new TicketOrderAdapter(ticket);
+		}
+		return toa;	
+	}
+	public Ticket findTicketByTid(String tid){
+		for(Ticket ticket: this.tickets){
+			if(ticket.getTid().equals(tid))
 				return ticket;
 		}
 		return null;

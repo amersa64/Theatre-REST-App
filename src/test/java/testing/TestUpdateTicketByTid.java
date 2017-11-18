@@ -1,29 +1,29 @@
 package testing;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 
+import adapters.TicketOrderAdapter;
 import mics.Randomizer;
 import mics.StaticSectionSetup;
 import seating.Seat;
 import seating.Section;
-import thalia.Donation;
 import thalia.Order;
 import thalia.Patron;
 import thalia.Show;
 import thalia.Theatre;
 import thalia.Ticket;
-import thalia.Donation.DonationStatus;
+import thalia.Ticket.TicketStatus;
 
-public class TestDonation {
-
+public class TestUpdateTicketByTid {
 	@Test
-	public void testPending() {
+	public void testSuccess() {
 		Theatre.restart();
 		Theatre thalia = Theatre.getInstance();
 		Patron p1 = new Patron("Jack", "jack@gmail.com", "8593658871", "address @ chicago", "123456789012345", "01/22");
-		Patron p2 = new Patron("Erica", "Erica@gmail.com", "767878671", "address @ indiana", "123456789762345", "02/26");
 		Section[] theatre1 = new Section[1];
 		StaticSectionSetup.random=true;
 		StaticSectionSetup.resetIDGenerators();
@@ -37,19 +37,18 @@ public class TestDonation {
 		thalia.add(show0);
 		thalia.add(ord0);
 		Ticket donatedTicket = ord0.getTickets()[0];
-		thalia.donateTicketByTid("0");
- 		Donation don0 = new Donation(2,show0,p2);
-		assertEquals(don0.getStatus(),DonationStatus.pending);
-		assertTrue(donatedTicket.isDonated());
-		assertFalse(thalia.getDonationsRequest().isEmpty());
-		assertTrue(thalia.getDonatedTickets().isEmpty());
+		assertNotEquals(donatedTicket.getStatus(),TicketStatus.used);
+		TicketOrderAdapter toa = thalia.updateTicketByTid("0");
+		Ticket t  = thalia.findTicketByTid("0");
+		assertEquals(t.getStatus(),TicketStatus.used);
+		assertEquals(thalia.getOrders().get(0).getTickets()[0],t);
+		assertEquals(toa.getStatus(),"used");
 	}
 	@Test
-	public void testAssigned() {
+	public void testFail() {
 		Theatre.restart();
 		Theatre thalia = Theatre.getInstance();
 		Patron p1 = new Patron("Jack", "jack@gmail.com", "8593658871", "address @ chicago", "123456789012345", "01/22");
-		Patron p2 = new Patron("Erica", "Erica@gmail.com", "767878671", "address @ indiana", "123456789762345", "02/26");
 		Section[] theatre1 = new Section[1];
 		StaticSectionSetup.random=true;
 		StaticSectionSetup.resetIDGenerators();
@@ -63,17 +62,11 @@ public class TestDonation {
 		thalia.add(show0);
 		thalia.add(ord0);
 		Ticket donatedTicket = ord0.getTickets()[0];
-		thalia.donateTicketByTid("0");
-		donatedTicket.setDonated(true);
-		assertTrue(thalia.getDonatedTickets().contains(donatedTicket));
-		Donation don0 = new Donation(1,show0,p2);
-		assertEquals(don0.getStatus(),DonationStatus.assigned);
-		assertTrue(thalia.findTicketByTid("0").isDonated());
-		assertTrue(donatedTicket.isDonated());
-		assertTrue(thalia.getDonationsRequest().isEmpty());
-		assertTrue(thalia.getDonatedTickets().isEmpty());
+		assertNotEquals(donatedTicket.getStatus(),TicketStatus.used);
+		TicketOrderAdapter toa = thalia.updateTicketByTid("20");
+		Ticket t  = thalia.findTicketByTid("20");
+		assertNull(t);
+		assertNull(toa);
+		
 	}
-
-
-
 }

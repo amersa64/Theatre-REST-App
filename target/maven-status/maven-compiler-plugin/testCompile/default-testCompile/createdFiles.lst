@@ -1,8 +1,8 @@
-testing\TestViewShowBetweenDates.class
 testing\TestDonation.class
-testing\TestFindTicketByCid.class
-testing\TestViewOrdersBetweenDates.class
 testing\AllTests.class
 testing\TestContigiousSeatRequest.class
 testing\TestTheatreGenerator.class
 testing\TestFindSeatByCid.class
+testing\TestViewShowBetweenDates.class
+testing\TestFindTicketByCid.class
+testing\TestViewOrdersBetweenDates.class

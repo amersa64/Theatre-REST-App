@@ -52,10 +52,7 @@ public class SeatingAPI {
 		StaticSectionSetup._init();//
 		StaticSectionSetup.revertCid();
 		SectionNumberAdapter sna;
-		//int convertSID = 0;
 		String section_name = StaticSectionSetup.sid_section_name_setup.get(sid);
-		System.out.print(sid);
-		System.out.println(section_name);
 		if(section_name==null) {
 			return Response.status(Response.Status.NOT_FOUND).entity("Not Found").build();
 		}

@@ -142,7 +142,7 @@ public class TestContigiousSeatRequest {
 		assertEquals(sra.getSeating().get(0).getSeats()[1].getCid(), "60");
 		assertEquals(sra.getStatus(),"ok");
 		assertEquals(sra.getStarting_seat_id(),"59");
-		assertTrue(sra.getTotal_amount()>0);
+		assertTrue(sra.getTotal_amount()!=0);
 	}
 	@Test
 	public void testRequestSeatsWithStartingCid() {
@@ -168,7 +168,7 @@ public class TestContigiousSeatRequest {
 		assertEquals(sra.getSeating().get(0).getRow(), "7");
 		assertEquals(sra.getStatus(),"ok");
 		assertEquals(sra.getStarting_seat_id(),"60");
-		assertTrue(sra.getTotal_amount()>0);
+		assertTrue(sra.getTotal_amount()!=0);
 	}
 	@Test
 	public void testNullRequestSeatsWithStartingCid() {

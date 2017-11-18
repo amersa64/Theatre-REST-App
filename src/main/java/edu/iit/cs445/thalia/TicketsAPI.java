@@ -16,7 +16,6 @@ import adapters.TicketAdapter;
 import adapters.TicketOrderAdapter;
 import thalia.Theatre;
 import thalia.Ticket;
-import thalia.Ticket.TicketStatus;
 
 //Sets the path to base URL + /test
 @Path("/tickets")
@@ -26,13 +25,11 @@ public class TicketsAPI {
 	@Path("/{tid}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response ViewTicket(@PathParam("tid") String tid){
-		for (Ticket t : Theatre.getInstance().getTickets()){
-			if (t.getTid().equals(tid)){
-				TicketAdapter ta = new TicketAdapter(t);
-				return Response.ok(ta).build();
-			}
-		}
-		return Response.status(Response.Status.NOT_FOUND).entity("Not Found").build();
+		Ticket t = Theatre.getInstance().findTicketByTid(tid);
+		if(t == null)
+			return Response.status(Response.Status.NOT_FOUND).entity("Not Found").build();
+		TicketAdapter ta = new TicketAdapter(t);
+		return Response.ok(ta).build();
 	}
 	
 	@POST
@@ -45,13 +42,9 @@ public class TicketsAPI {
 		if (!tid.equals(jsonticketId)) {
 			return Response.status(Response.Status.BAD_REQUEST).entity("Data is missing or Not Found").build();
 		}
-		
-		for (int i = 0; i < Theatre.getInstance().getTickets().size(); i++){
-			if (Theatre.getInstance().getTickets().get(i).getTid().equals(tid)){
-				Theatre.getInstance().getTickets().get(i).setStatus(TicketStatus.used);
-				TicketOrderAdapter toa = new TicketOrderAdapter(Theatre.getInstance().getTickets().get(i));
-				return Response.status(Response.Status.CREATED).entity(toa).build();
-			}
+		TicketOrderAdapter toa = Theatre.getInstance().updateTicketByTid(tid);
+		if(toa!=null) {
+			return Response.status(Response.Status.CREATED).entity(toa).build();
 		}
 		return Response.status(Response.Status.BAD_REQUEST).entity("Data is missing or Not Found").build();
 	}
@@ -66,29 +59,12 @@ public class TicketsAPI {
 		JSONParser parser = new JSONParser();
 		JSONObject jsonObj = (JSONObject) parser.parse(json);
 		JSONArray jsonArray = (JSONArray) jsonObj.get("tickets");
-		String[] ticketIds = new String[jsonArray.size()];
-		for (int i = 0; i < ticketIds.length; i++) {
-			ticketIds[i] = (String) jsonArray.get(i);
-		}
 		boolean success = false;
-		for(String tid: ticketIds) {
-			success =Theatre.getInstance().donateTicketByTid(tid);
+		for (Object thing: jsonArray) {
+			success =Theatre.getInstance().donateTicketByTid(thing.toString());
 		}
 		if(success) 
 			return Response.ok().build();
-		
-//		for (int j = 0; j < ticketIds.length; j++) {
-//			for (Ticket ticketlist : Theatre.getInstance().getTickets()) {
-//				if (ticketlist.getTid().equals(ticketIds[j])) {
-//					count++;
-////					ticketlist.setDonated(true);
-//					Theatre.getInstance().addD(ticketlist);
-//					if (count == ticketIds.length) {
-//						return Response.ok().build();
-//					}
-//				}
-//			}
-//		}
 		return Response.status(Response.Status.BAD_REQUEST).entity("Data is missing or Not Found").build();
 	}
 	

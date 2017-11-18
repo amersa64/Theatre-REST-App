@@ -20,6 +20,13 @@ public class TheatreAdapter {
 	public void setName(String name) {
 		this.name = name;
 	}
+	public static TheatreAdapter[] staticReports() {
+		TheatreAdapter[] ta = new TheatreAdapter[3];
+		ta[0] = new TheatreAdapter("801", "Theatre occupancy");
+		ta[1] = new TheatreAdapter("802", "Revenue from ticket sales");
+		ta[2] = new TheatreAdapter("803", "Donated tickets report");
+		return ta;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
