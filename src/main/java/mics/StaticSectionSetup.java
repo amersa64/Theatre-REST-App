@@ -20,8 +20,16 @@ import utility.TicketIDGenerator;
 public class StaticSectionSetup {
 	public static HashMap<String,Section> section_setup;
 	public static boolean random=false;
+	public static HashMap<String,String> sid_section_name_setup;
 	public static synchronized void _init(){
 		JSONParser parser = new JSONParser();
+		sid_section_name_setup= new HashMap<String,String>();
+		sid_section_name_setup.put("123","Front right");
+		sid_section_name_setup.put("124", "Front center");
+		sid_section_name_setup.put("125", "Front left");
+		sid_section_name_setup.put("126", "Main right");
+		sid_section_name_setup.put("127", "Main center");
+		sid_section_name_setup.put("128", "Main left");
 		section_setup = new HashMap<>();
         try {     
         	//Object obj = parser.parse(new FileReader("src\\main\\resources\\project-test-theatre-seating.json"));

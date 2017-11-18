@@ -25,7 +25,7 @@ public class SeatRequestAdapter extends ShowAdapter {
 				this.starting_seat_id =starting_seat_id;
 			this.seating = new ArrayList<RowAvailAdapter>();
 			this.seating.add(seats);
-			this.total_amount = section.getPrice()*count; //Was added in
+			this.total_amount = section.getPrice()*count; 
 		}else{
 			this.status="Error: "+ count+ " contiguous seats not available";
 			if(starting_seat_id.equals(""))
@@ -34,7 +34,6 @@ public class SeatRequestAdapter extends ShowAdapter {
 				this.starting_seat_id =starting_seat_id;
 			this.seating = new ArrayList<RowAvailAdapter>();
 			this.total_amount = 0;
-//			this.seating[0] = null; // Need to print out an array?
 		}
 	}
 	public String getSid() {

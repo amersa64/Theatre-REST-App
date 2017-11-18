@@ -3,6 +3,8 @@ package thalia;
 import java.time.*;
 import java.util.Arrays;
 
+import adapters.RowAvailAdapter;
+import adapters.SeatRequestAdapter;
 import seating.*;
 
 import utility.ShowIDGenerator;
@@ -35,6 +37,38 @@ public class Show {
 		this.seating_info = theatre;
 		this.show_info.setName(name);
 		this.show_info.setWeb(web);
+	}
+	public Section findSectionBySid(String sid) {
+		for(Section section: this.seating_info) {
+			if(section.getSid().equals(sid))
+				return section;
+		}
+		return null;
+	}
+	public SeatRequestAdapter requestSeats(String sid,int count, String cid) {
+		Section section = findSectionBySid(sid);
+		Row rowRE = null;
+		int rowIndex = 0;
+		int seatIndex = 0;
+		String StartingCid="";
+		if(!cid.equals("")) {
+			for (int r =0 ;r< section.getRows().length;r++){
+				for (int s =0 ;s< section.getRows()[r].getSeats().length;s++){
+					if (section.getRows()[r].getSeats()[s].getCid().equals(cid)){
+						rowIndex =r;
+						seatIndex = s;
+						StartingCid = section.getRows()[r].getSeats()[s].getCid();
+					}
+				}
+			}
+		}
+		rowRE = section.reqNewSeats(count, rowIndex, seatIndex);
+		RowAvailAdapter raa = null;
+		if (rowRE != null){
+			raa = new RowAvailAdapter(rowRE);
+		}
+		SeatRequestAdapter sra = new SeatRequestAdapter(this, section,StartingCid, raa, count);
+		return sra;
 	}
 	public String getWid() {
 		return wid;

@@ -58,7 +58,7 @@ public class Row {
 	
 	@Override
 	public String toString() {
-		return "RowAdapter [seats=" + Arrays.toString(seats) + ", row=" + row + "]";
+		return "Row [seats=" + Arrays.toString(seats) + ", row=" + row + "]";
 	}
 	@Override
 	public int hashCode() {

@@ -53,5 +53,16 @@ public class SectionNameAdapter{
 	public String toString() {
 		return "SectionNameAdapter [section_name=" + section_name + ", sid=" + sid + "]";
 	}
+	public static SectionNameAdapter[] defaultSectionsSetup() {
+		SectionNameAdapter[] sna = new SectionNameAdapter[6];			
+		sna[0] = new SectionNameAdapter("123", "Front right");
+		sna[1] = new SectionNameAdapter("124", "Front center");
+		sna[2] = new SectionNameAdapter("125", "Front left");
+		sna[3] = new SectionNameAdapter("126", "Main right");
+		sna[4] = new SectionNameAdapter("127", "Main center");
+		sna[5] = new SectionNameAdapter("128", "Main left");
+		return sna;
+	}
+	
 	
 }

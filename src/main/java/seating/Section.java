@@ -12,7 +12,6 @@ public class Section {
 	String section_name;
 	Row[] seating;
 	double price;
-	
 	public Section(){
 		this.section_name = "Section Name";
 		this.sid = "0";
