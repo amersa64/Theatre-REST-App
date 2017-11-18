@@ -6,7 +6,7 @@ public class SectionOccupancyReport extends SectionReport{
 	double section_occupancy;
 	public SectionOccupancyReport(Section section) {
 		super(section);
-		this.section_occupancy = (this.seats_sold/(this.seats_sold+this.seats_available))*100;
+		this.section_occupancy = (this.seats_sold/((double)this.seats_available))*100;
 	}
 	public SectionOccupancyReport(Section section, double section_occupancy) {
 		super(section);

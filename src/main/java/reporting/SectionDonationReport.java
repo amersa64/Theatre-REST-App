@@ -24,7 +24,6 @@ public class SectionDonationReport extends SectionReport{
 		for(Row row: section.getRows()){
 			for(Seat seat: row.getSeats()){
 				Ticket cid_ticket = Theatre.getInstance().findTicketByCid(seat.getCid());
-//				if(!cid_ticket.equals(null)){
 				if(cid_ticket != null){
 					section_tickets.add(cid_ticket);
 				}

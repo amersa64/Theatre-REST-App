@@ -8,7 +8,7 @@ public class ShowOccupancyReport extends ShowReport {
 		super(show);
 		this.SectionsReports= new SectionOccupancyReport[show.getSeating_info().length];
 		updateSectionReports();
-		double denom = Double.valueOf(this.seats_available) + Double.valueOf(this.seats_sold);
+		double denom = Double.valueOf(this.seats_available);
 		this.occupancy=(Double.valueOf(this.seats_sold)/denom)*100;
 	}
 	private void updateSectionReports(){
