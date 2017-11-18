@@ -38,7 +38,6 @@ public class OrderLookAdapter {
 		this.tickets = new TicketOrderAdapter[order.getTickets().length];
 		for (int i = 0; i < order.getTickets().length; i++){
 			Ticket ticket = order.getTickets()[i];
-			System.out.print(ticket.toString());
 			this.tickets[i] = new TicketOrderAdapter(ticket);
 		}
 	}

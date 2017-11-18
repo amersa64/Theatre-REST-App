@@ -24,10 +24,8 @@ import adapters.OrderConfirmAdapter;
 import adapters.OrderLookAdapter;
 import seating.Seat;
 import seating.Seat.SeatStatus;
-import seating.Section;
 import thalia.Order;
 import thalia.Patron;
-import thalia.Show;
 import thalia.Theatre;
 
 //Sets the path to base URL + /test
@@ -38,7 +36,6 @@ public class OrdersAPI {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response CreateOrder(String json) throws ParseException{
-//		Order o = new Order (Theatre.getInstance().getShows().get(0), Theatre.getInstance().getShows().get(0).getSeating_info()[0], )
 		JSONParser parser = new JSONParser();
 		JSONObject jsonObj = (JSONObject) parser.parse(json);
 		JSONObject patron_info_object = (JSONObject)jsonObj.get("patron_info");
@@ -61,26 +58,13 @@ public class OrdersAPI {
 			seats[i] = new Seat((String) seatObject.get("cid"), (String) seatObject.get("seat"), SeatStatus.available);
 		}
 		
-		for (Show show : Theatre.getInstance().getShows()){
-			if (show.getWid().equals(wid)){
-				for (Section section : show.getSeating_info()){
-					if (section.getSid().equals(sid)){
-						Order o = new Order (show, section, patron_info, seats);
-						if (o.getTickets() != null) {
-							Theatre.getInstance().add(o);
-							OrderConfirmAdapter oa = new OrderConfirmAdapter(o);
-							
-							return Response.status(Response.Status.CREATED).entity(oa).build();
-							
-						}
-						else {
-							return Response.status(Response.Status.BAD_REQUEST).entity("Data is missing or invalid entry").build();
-						}
-					}
-				}
-			}
+		Order orderConfirm = Order.confirmOrder(wid, sid, patron_info, seats);
+		if (orderConfirm != null) {
+			OrderConfirmAdapter oca = new OrderConfirmAdapter(orderConfirm);
+			return Response.status(Response.Status.CREATED).entity(oca).build();
+		}else{
+			return Response.status(Response.Status.BAD_REQUEST).entity("Data is missing or invalid entry").build();	
 		}
-		return Response.status(Response.Status.BAD_REQUEST).entity("Data is missing or invalid entry").build();
 	}
 	
 	@GET
@@ -88,10 +72,10 @@ public class OrdersAPI {
 	public Response ViewOrdersByDate(@DefaultValue("") @QueryParam("start_date") String start_date, @DefaultValue("") @QueryParam("end_date") String end_date){
 		
 		if (start_date.equals("") && end_date.equals("")){
-			OrderAdapter oa;
+
 			ArrayList<OrderAdapter> listoforders = new ArrayList<OrderAdapter>();
 			for (int i = 0; i < Theatre.getInstance().getOrders().size(); i++){
-				oa = new OrderAdapter(Theatre.getInstance().getOrders().get(i));
+				OrderAdapter oa = new OrderAdapter(Theatre.getInstance().getOrders().get(i));
 				listoforders.add(oa);
 			}
 			return Response.ok(listoforders).build();
@@ -119,11 +103,11 @@ public class OrdersAPI {
 	@Path("/{oid}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response ViewOrder(@PathParam("oid") String oid){
-		for (int i = 0; i < Theatre.getInstance().getOrders().size(); i++){
-			if (Theatre.getInstance().getOrders().get(i).getOid().equals(oid)){
-				OrderLookAdapter ola = new OrderLookAdapter(Theatre.getInstance().getOrders().get(i));
-				return Response.ok(ola).build();
-			}
+		Order o = Order.viewOrder(oid);
+		if (o != null) {
+			OrderLookAdapter ola = new OrderLookAdapter(Order.viewOrder(oid));
+			return Response.ok(ola).build();
+
 		}
 		return Response.status(Response.Status.NOT_FOUND).entity("Not Found").build();
 	}

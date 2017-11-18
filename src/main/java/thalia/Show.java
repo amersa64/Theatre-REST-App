@@ -1,10 +1,22 @@
 package thalia;
 
 import java.time.*;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.stream.Stream;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import adapters.RowAvailAdapter;
 import adapters.SeatRequestAdapter;
+import adapters.SectionAdapter;
+import adapters.SectionPriceAdapter;
+import adapters.ShowAdapter;
+import adapters.ShowSectionAdapter;
+import mics.StaticSectionSetup;
 import seating.*;
 
 import utility.ShowIDGenerator;
@@ -38,6 +50,221 @@ public class Show {
 		this.show_info.setName(name);
 		this.show_info.setWeb(web);
 	}
+
+
+	public static Show createShow(LocalTime time, LocalDate date, Section[] seating_info, String name, String web, JSONArray seating_info_array) {
+
+		for (int i = 0; i < seating_info.length; i++){
+			JSONObject sectionelement = (JSONObject) seating_info_array.get(i);
+			double price = Double.valueOf(sectionelement.get("price").toString());
+			switch (sectionelement.get("sid").toString()){
+			case "123": //FIX Will change these values in the future
+				seating_info[i] = StaticSectionSetup.section_setup.get("Front right");
+//				seating_info[i] = SSS.getInstance().getSection_setup().get("Front right");
+				seating_info[i].setSid(sectionelement.get("sid").toString());
+				seating_info[i].setPrice(price);
+				break;
+			case "124":
+				seating_info[i] = StaticSectionSetup.section_setup.get("Front center");
+//				seating_info[i] = SSS.getInstance().getSection_setup().get("Front center");
+				seating_info[i].setSid(sectionelement.get("sid").toString());
+				seating_info[i].setPrice(price);
+				break;
+			case "125":
+				seating_info[i] = StaticSectionSetup.section_setup.get("Front left");
+//				seating_info[i] = SSS.getInstance().getSection_setup().get("Front left");
+				seating_info[i].setSid(sectionelement.get("sid").toString());
+				seating_info[i].setPrice(price);
+				break;
+			case "126":
+				seating_info[i] = StaticSectionSetup.section_setup.get("Main right");
+//				seating_info[i] = SSS.getInstance().getSection_setup().get("Main right");
+				seating_info[i].setSid(sectionelement.get("sid").toString());
+				seating_info[i].setPrice(price);
+				break;
+			case "127":
+				seating_info[i] = StaticSectionSetup.section_setup.get("Main center");
+//				seating_info[i] = SSS.getInstance().getSection_setup().get("Main center");
+				seating_info[i].setSid(sectionelement.get("sid").toString());
+				seating_info[i].setPrice(price);
+				break;
+			case "128":
+				seating_info[i] = StaticSectionSetup.section_setup.get("Main left");
+//				seating_info[i] = SSS.getInstance().getSection_setup().get("Main left");
+				seating_info[i].setSid(sectionelement.get("sid").toString());
+				seating_info[i].setPrice(price);
+				break;
+			default:
+				return null;
+			}
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+		Show sh = new Show(time, date, seating_info, name, web);
+		Theatre.getInstance().getShows().add(sh);
+		return sh;
+	}
+	
+	public static boolean updateShow(String wid, String json) throws ParseException{
+		for (int j = 0; j < Theatre.getInstance().getShows().size(); j++){
+			 if (wid.equals(Theatre.getInstance().getShows().get(j).getWid())){
+				JSONParser parser = new JSONParser();
+				JSONObject jsonObj = (JSONObject) parser.parse(json);
+				JSONObject show_info_object = (JSONObject)jsonObj.get("show_info");
+				JSONArray seating_info_array = (JSONArray)jsonObj.get("seating_info");
+				String name = (String) show_info_object.get("name");
+				String web = (String) show_info_object.get("web");
+				String datestring = (String) show_info_object.get("date");
+				String[] dt = datestring.split("-");
+				int[] datetokens = Stream.of(dt).mapToInt(Integer::parseInt).toArray();
+				LocalDate date = LocalDate.of(datetokens[0], datetokens[1], datetokens[2]);
+				String timestring = (String) show_info_object.get("time");
+				String[] tt = timestring.split(":");
+				int[] timetokens = Stream.of(tt).mapToInt(Integer::parseInt).toArray();
+				LocalTime time = LocalTime.of(timetokens[0], timetokens[1], 0);
+				Section[] seating_info = new Section[seating_info_array.size()];
+				if (show_info_object.equals(null) || name.equals(null) || web.equals(null) || datestring.equals(null) || timestring.equals(null) || seating_info_array.equals(null)){
+					return false;
+				}
+				
+				for (int i = 0; i < seating_info.length; i++){
+					JSONObject sectionelement = (JSONObject) seating_info_array.get(i);
+					double price = Double.valueOf(sectionelement.get("price").toString());
+					switch (sectionelement.get("sid").toString()){//FIX Will Change to our own values later
+					case "123":
+						seating_info[i] = StaticSectionSetup.section_setup.get("Front right");
+//						seating_info[i] = SSS.getInstance().getSection_setup().get("Front right");
+						break;
+					case "124":
+						seating_info[i] = StaticSectionSetup.section_setup.get("Front center");
+//						seating_info[i] = SSS.getInstance().getSection_setup().get("Front center");
+						break;
+					case "125":
+						seating_info[i] = StaticSectionSetup.section_setup.get("Front left");
+//						seating_info[i] = SSS.getInstance().getSection_setup().get("Front left");
+						break;
+					case "126":
+						seating_info[i] = StaticSectionSetup.section_setup.get("Main right");
+//						seating_info[i] = SSS.getInstance().getSection_setup().get("Main right");
+						break;
+					case "127":
+						seating_info[i] = StaticSectionSetup.section_setup.get("Main center");
+//						seating_info[i] = SSS.getInstance().getSection_setup().get("Main center");
+						break;
+					case "128":
+						seating_info[i] = StaticSectionSetup.section_setup.get("Main left");
+//						seating_info[i] = SSS.getInstance().getSection_setup().get("Main left");
+						break;
+					default:
+						return false;
+					}
+					Theatre.getInstance().getShows().get(j).getSeating_info()[i].setSid(sectionelement.get("sid").toString());
+					Theatre.getInstance().getShows().get(j).getSeating_info()[i].setPrice(price);
+				}
+				Theatre.getInstance().getShows().get(j).setName(name);
+				Theatre.getInstance().getShows().get(j).setDate(date);
+				Theatre.getInstance().getShows().get(j).setTime(time);
+				Theatre.getInstance().getShows().get(j).setWeb(web);
+				return true;
+			 }
+		}
+		return false;
+	}
+	
+	public static Show viewShow(String wid) {
+		for (Show show : Theatre.getInstance().getShows()){
+			if (show.getWid().equals(wid)){
+				return show;
+			}
+
+
+
+
+		}
+		return null;
+	}
+	
+	public static ArrayList<ShowAdapter> viewAllShows(){
+		ShowAdapter sh;
+		ArrayList<ShowAdapter> listofshows = new ArrayList<ShowAdapter>();
+		for (int i = 0; i < Theatre.getInstance().getShows().size(); i++){
+			sh = new ShowAdapter(Theatre.getInstance().getShows().get(i));
+			listofshows.add(sh);
+		}
+		return listofshows;
+//		return Response.ok(listofshows).build();
+	}
+	
+	public static SectionAdapter[] viewSections(String wid) {
+		for (Show show : Theatre.getInstance().getShows()){
+			if (show.getWid().equals(wid)){
+				SectionAdapter[] saa = new SectionAdapter[show.getSeating_info().length];
+				for (int j = 0; j < saa.length; j++){
+					saa[j] = new SectionPriceAdapter(show.getSeating_info()[j]);
+				}
+				return saa;
+//				return Response.ok(saa).build();
+			}
+
+		}
+		return null;
+	}
+	
+	public static ShowSectionAdapter viewSpecificSection (String wid, String sid) {
+		for (Show show : Theatre.getInstance().getShows()){
+			if (show.getWid().equals(wid)){
+				ShowSectionAdapter ssa = new ShowSectionAdapter(show, sid);
+				if (ssa.getSeating() == null){
+					return null;
+				}
+				return ssa;
+			}
+		}
+		return null;
+	}
+	
+	public static Donation requestDonations(String wid, int count, Patron patron_info, String wid_from_object) {
+		for (Show show : Theatre.getInstance().getShows()) {
+			if (show.getWid().equals(wid) && wid.equals(wid_from_object)) {
+				Donation d = new Donation(count, show, patron_info);
+				Theatre.getInstance().add(d);
+				return d;
+			}
+		}
+		return null;
+	}
+	
+	public static Donation getDonation(String wid, String did) {
+		String wid_found = "";
+		for (Show show : Theatre.getInstance().getShows()){
+			if (show.getWid().equals(wid)){
+				wid_found = show.getWid();
+				break;
+			}
+		}
+		for (int j = 0; j < Theatre.getInstance().getDonationsRequest().size(); j++){
+			if (((Donation) Theatre.getInstance().getDonationsRequest().toArray()[j]).getDid().equals(did) && ((Donation) Theatre.getInstance().getDonationsRequest().toArray()[j]).getShow().getWid().equals(wid_found)){
+				Donation d = (Donation) Theatre.getInstance().getDonationsRequest().toArray()[j];
+				
+				return d;
+			}
+		}
+		return null;
+	}
+	
 	public Section findSectionBySid(String sid) {
 		for(Section section: this.seating_info) {
 			if(section.getSid().equals(sid))

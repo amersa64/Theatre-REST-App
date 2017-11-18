@@ -12,6 +12,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import adapters.PutAdapter;
 import adapters.TicketAdapter;
 import adapters.TicketOrderAdapter;
 import thalia.Theatre;
@@ -63,8 +64,10 @@ public class TicketsAPI {
 		for (Object thing: jsonArray) {
 			success =Theatre.getInstance().donateTicketByTid(thing.toString());
 		}
-		if(success) 
-			return Response.ok().build();
+		if(success) {
+			PutAdapter pa = new PutAdapter();
+			return Response.ok(pa).build();
+		}
 		return Response.status(Response.Status.BAD_REQUEST).entity("Data is missing or Not Found").build();
 	}
 	

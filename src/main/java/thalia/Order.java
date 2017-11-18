@@ -2,7 +2,6 @@ package thalia;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
-
 import seating.*;
 import seating.Seat.SeatStatus;
 import utility.OrderIDGenerator;
@@ -67,6 +66,37 @@ public class Order {
 			return true;
 		}
 		return false;
+	}
+
+	public static Order confirmOrder(String wid, String sid, Patron patron_info, Seat[] seats) {
+		
+		for (Show show : Theatre.getInstance().getShows()){
+			if (show.getWid().equals(wid)){
+				for (Section section : show.getSeating_info()){
+					if (section.getSid().equals(sid)){
+						Order o = new Order (show, section, patron_info, seats);
+						if (o.getTickets() != null) {
+							Theatre.getInstance().add(o);
+							return o;
+						}
+						else {
+							return null;
+						}
+					}
+				}
+			}
+		}
+		return null;
+	}
+	
+	public static Order viewOrder(String oid) {
+		for (int i = 0; i < Theatre.getInstance().getOrders().size(); i++){
+			if (Theatre.getInstance().getOrders().get(i).getOid().equals(oid)){
+				Order o = Theatre.getInstance().getOrders().get(i);
+				return o;
+			}
+		}
+		return null;
 	}
 	public String getOid() {
 		return oid;

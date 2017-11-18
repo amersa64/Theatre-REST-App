@@ -2,6 +2,9 @@ package adapters;
 
 import java.util.ArrayList;
 
+import thalia.Order;
+import thalia.Theatre;
+
 public class OrderSearchAdapter {
 	
 	ArrayList<OrderAdapter> orders;
@@ -13,6 +16,24 @@ public class OrderSearchAdapter {
 	}
 	public void setOrders(ArrayList<OrderAdapter> oa) {
 		this.orders = oa;
+	}
+	public static ArrayList<OrderAdapter> searchOrders(String key){
+		ArrayList<OrderAdapter> orderList = new ArrayList<OrderAdapter>();
+		if (key.equals("")){
+			for (Order order : Theatre.getInstance().getOrders()){
+				OrderAdapter oa = new OrderAdapter(order);
+				orderList.add(oa);
+			}
+		}
+		else{
+			for (Order order  : Theatre.getInstance().getOrders()){
+				if (order.toString().contains(key)){
+					OrderAdapter oa = new OrderAdapter(order);
+					orderList.add(oa);
+				}
+			}
+		}
+		return orderList;
 	}
 	@Override
 	public int hashCode() {

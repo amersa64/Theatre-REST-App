@@ -14,9 +14,6 @@ import adapters.OrderAdapter;
 import adapters.OrderSearchAdapter;
 import adapters.ShowAdapter;
 import adapters.ShowSearchAdapter;
-import thalia.Order;
-import thalia.Show;
-import thalia.Theatre;
 
 //Sets the path to base URL + /test
 @Path("/search")
@@ -28,41 +25,23 @@ public class SearchAPI {
 		if (!topic.equals("")){
 			switch (topic){
 				case "show":
-					ArrayList<ShowAdapter> showList = new ArrayList<ShowAdapter>();
-					if (key.equals("")){
-						for (Show show : Theatre.getInstance().getShows()){
-							ShowAdapter sa = new ShowAdapter(show);
-							showList.add(sa);
-						}
+					ArrayList<ShowAdapter>  saal = ShowSearchAdapter.searchShows(key);
+					if (saal != null) {
+						ShowSearchAdapter ssa = new ShowSearchAdapter(saal);
+						return Response.ok(ssa).build();
 					}
-					else{
-						for (Show show : Theatre.getInstance().getShows()){
-							if (show.toString().contains(key)){
-								ShowAdapter sa = new ShowAdapter(show);
-								showList.add(sa);
-							}
-						}
+					else {
+						return Response.status(Response.Status.NOT_FOUND).entity("Not Found").build();
 					}
-					ShowSearchAdapter ssa = new ShowSearchAdapter(showList);
-					return Response.ok(ssa).build();
 				case "order":
-					ArrayList<OrderAdapter> orderList = new ArrayList<OrderAdapter>();
-					if (key.equals("")){
-						for (Order order : Theatre.getInstance().getOrders()){
-							OrderAdapter oa = new OrderAdapter(order);
-							orderList.add(oa);
-						}
+					ArrayList<OrderAdapter> oaal = OrderSearchAdapter.searchOrders(key);
+					if (oaal != null) {
+						OrderSearchAdapter osa = new OrderSearchAdapter(oaal);
+						return Response.ok(osa).build();
 					}
-					else{
-						for (Order order  : Theatre.getInstance().getOrders()){
-							if (order.toString().contains(key)){
-								OrderAdapter oa = new OrderAdapter(order);
-								orderList.add(oa);
-							}
-						}
+					else {
+						return Response.status(Response.Status.NOT_FOUND).entity("Not Found").build();
 					}
-					OrderSearchAdapter osa = new OrderSearchAdapter(orderList);
-					return Response.ok(osa).build();
 				default: 
 					return Response.status(Response.Status.NOT_FOUND).entity("Not Found").build();
 			}
@@ -70,14 +49,3 @@ public class SearchAPI {
 		return Response.status(Response.Status.NOT_FOUND).entity("Not Found").build();
 	}
 }
-//for (int i = 0; i < Theatre.getInstance().getShows().size(); i++){
-//	sh = new ShowAdapter(Theatre.getInstance().getShows().get(i));
-//	listofshows.add(sh);
-//}
-
-//ArrayList<Show> shows;
-//ArrayList<Order> orders;
-//ArrayList<Ticket> tickets;
-//Queue<Donation> donationsRequest;
-//ArrayList<Ticket> donatedTickets;
-//ArrayList<Patron> patrons;

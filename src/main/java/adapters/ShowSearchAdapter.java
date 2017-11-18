@@ -2,6 +2,9 @@ package adapters;
 
 import java.util.ArrayList;
 
+import thalia.Show;
+import thalia.Theatre;
+
 public class ShowSearchAdapter {
 	
 	ArrayList<ShowAdapter> shows;
@@ -13,6 +16,25 @@ public class ShowSearchAdapter {
 	}
 	public void setShows(ArrayList<ShowAdapter> shows) {
 		this.shows = shows;
+	}
+	
+	public static ArrayList<ShowAdapter> searchShows(String key) {
+		ArrayList<ShowAdapter> showList = new ArrayList<ShowAdapter>();
+		if (key.equals("")){
+			for (Show show : Theatre.getInstance().getShows()){
+				ShowAdapter sa = new ShowAdapter(show);
+				showList.add(sa);
+			}
+		}
+		else{
+			for (Show show : Theatre.getInstance().getShows()){
+				if (show.toString().contains(key)){
+					ShowAdapter sa = new ShowAdapter(show);
+					showList.add(sa);
+				}
+			}
+		}
+		return showList;
 	}
 	@Override
 	public int hashCode() {
