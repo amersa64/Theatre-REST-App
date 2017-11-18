@@ -46,7 +46,7 @@ public class TheatreReport {
 		sold_seats=0;
 		for(Show show: this.shows){
 			ShowReport showreport = new ShowReport(show);
-			total_seats+=(showreport.getSeats_available()+showreport.getSeats_sold());
+			total_seats+=showreport.getSeats_available();
 			sold_seats+=showreport.getSeats_sold();
 		}
 	}

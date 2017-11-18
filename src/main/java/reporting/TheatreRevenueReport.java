@@ -34,9 +34,13 @@ public class TheatreRevenueReport extends TheatreReport{
 	}
 	
 	private void updateRevenue(){
+		int counter = 0;
 		for(int i =0; i< this.shows.length;i++){
 			ShowRevenueReport srr = new ShowRevenueReport(theatre.getShows().get(i));
-			this.showsReports[i] =srr;
+			if(srr.getRevenue()!=0) {
+				this.showsReports[counter] =srr;
+				counter++;
+			}
 			this.overall_revenue+=srr.getRevenue();
 		}
 	}

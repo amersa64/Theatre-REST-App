@@ -10,15 +10,14 @@ public class SectionReport {
 	public SectionReport(Section section){
 		this.section = section;
 		this.seats_sold= 0;
-		int cap = 0;
+		this.seats_available = 0;
 		for(Row row: section.getRows()){
 			for(Seat seat: row.getSeats()){
 				if(seat.getStatus().equals(SeatStatus.sold))
 					this.seats_sold++;
-				cap++;
+				seats_available++;
 			}
 		}
-		this.seats_available=cap-this.seats_sold;
 	}
 	public SectionReport(Section section, int seats_available, int seats_sold) {
 		this.section = section;
