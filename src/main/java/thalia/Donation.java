@@ -23,17 +23,6 @@ public class Donation {
 		this.patron_info=patron_info;
 		Theatre.getInstance().add(this);
 	}
-	public Donation(String did, DonationStatus status, int count, ArrayList<Ticket> tickets, Show show,
-			Patron patron_info) {
-		super();
-		this.did = did;
-		this.status = status;
-		this.count = count;
-		this.tickets = tickets;
-		this.show = show;
-		this.patron_info = patron_info;
-		Theatre.getInstance().add(this);
-	}
 	public boolean tryAssignTicket(){
 		for(Ticket ticket: Theatre.getInstance().getDonatedTickets()){
 			if(ticket.getShow().getWid().equals(this.show.getWid())){
@@ -45,26 +34,6 @@ public class Donation {
 		}
 		return false;
 	}
-//	public boolean tryAssignTicket(){
-//		ArrayList<Ticket> validTickets = new ArrayList<Ticket>();
-//		for(Ticket ticket: Theatre.getInstance().getDonatedTickets()){
-//			if(ticket.getShow().getWid().equals(this.show.getWid()) && validTickets.size() < this.count){
-//				validTickets.add(ticket);
-//			}
-//		}
-//		if (validTickets.size() != 0) {
-//			for (Ticket valtix : validTickets) {
-//				valtix.setDonated(true);
-//				add(valtix);
-//				updateStatus();
-//				Theatre.getInstance().deleteD(valtix);
-//			}
-//			return true;
-//		}
-//		else {
-//			return false;
-//		}
-//	}
 	private void updateStatus(){
 		if(this.count==this.tickets.size()) {
 			this.status=DonationStatus.assigned;

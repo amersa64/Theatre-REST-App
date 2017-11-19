@@ -115,6 +115,9 @@ public class TestShow {
 		
 		Show o1 = Show.viewShow(show0.getWid());
 		assertEquals(o1, show0);
+
+		o1 = thalia.searchShowId("0");
+		assertEquals(o1, show0);
 		
 		Show o2 = Show.viewShow(show1.getWid());
 		assertEquals(o2, show1);

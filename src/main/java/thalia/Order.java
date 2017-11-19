@@ -53,21 +53,6 @@ public class Order {
 		this.tickets = tickets;
 	}
 
-	public boolean checkOrder(Section section, Seat[] seats) {
-		boolean SeatsAreAvailable = false;
-		for(Seat seat: seats) {
-			SeatsAreAvailable = section.checkSeat(seat);
-			seat.setStatus(SeatStatus.sold);
-		}
-		if(SeatsAreAvailable) {
-			for(Seat seat: seats) {
-				section.update(seat);
-			}
-			return true;
-		}
-		return false;
-	}
-
 	public static Order confirmOrder(String wid, String sid, Patron patron_info, Seat[] seats) {
 		
 		for (Show show : Theatre.getInstance().getShows()){
@@ -233,19 +218,6 @@ public class Order {
 		return true;
 	}
 
-	public Order(String oid, LocalDateTime date_ordered, double order_amount, int number_of_tickets, Patron patron_info,
-			Show show, Section section, Seat[] seats, Ticket[] tickets) {
-		super();
-		this.oid = oid;
-		this.date_ordered = date_ordered;
-		this.order_amount = order_amount;
-		this.number_of_tickets = number_of_tickets;
-		this.patron_info = patron_info;
-		this.show = show;
-		this.section = section;
-		this.seats = seats;
-		this.tickets = tickets;
-	}
 
 	@Override
 	public String toString() {
