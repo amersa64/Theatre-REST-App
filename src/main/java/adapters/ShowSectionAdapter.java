@@ -2,7 +2,6 @@ package adapters;
 
 import java.util.Arrays;
 
-//import seating.Row;
 import seating.Section;
 import thalia.*;
 //this is used for viewing a specific section in a show (shows/{wid}/sections/{sid}
@@ -12,8 +11,6 @@ public class ShowSectionAdapter extends ShowAdapter {
 	RowAvailAdapter[] seating;
 	public ShowSectionAdapter(Show show, String sid){
 		super(show);
-//		for (int i = 0; i < show.getSeating_info().length; i++){
-//			if (show.getSeating_info()[i].getSid().equals(sid)){
 		for (Section section : show.getSeating_info()){
 			if (section.getSid().equals(sid)){
 				Section s = new Section();

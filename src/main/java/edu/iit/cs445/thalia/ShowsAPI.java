@@ -23,7 +23,6 @@ import org.json.simple.parser.ParseException;
 import seating.Section;
 import adapters.SectionAdapter;
 import adapters.PutAdapter;
-//import testing.SSS;
 import mics.StaticSectionSetup;
 import thalia.Donation;
 import thalia.Patron;

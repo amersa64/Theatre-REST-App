@@ -2,7 +2,6 @@ package adapters;
 
 import seating.Row;
 import seating.Seat;
-//import thalia.ShowData;
 import thalia.Ticket;
 
 public class TicketAdapter {
@@ -18,11 +17,9 @@ public class TicketAdapter {
 	public TicketAdapter(Ticket ticket){
 		this.tid=ticket.getTid();
 		this.price= ticket.getPrice();
-//		this.status= ticket.getStatus();
 		this.status = ticket.getStatus().toString();
 		this.wid= ticket.getShow().getWid();
 		this.show_info= new ShowDataAdapter(ticket.getShow().getShow_info());
-//		this.show_info= ticket.getShow().getShow_info();
 		this.patron_info= new PatronAdapter(ticket.getPatron_info());
 		this.sid= ticket.getSection().getSid();
 		this.section_name= ticket.getSection().getSection_name();

@@ -1,14 +1,10 @@
-
 package adapters;
-
-//import java.time.LocalDateTime;
 
 import thalia.Order;
 
 public class OrderAdapter {
 	String oid;
 	String wid;
-//	ShowData show_info;
 	ShowDataAdapter show_info;
 	String date_ordered;
 	double order_amount;
@@ -29,7 +25,6 @@ public class OrderAdapter {
 		String hour = String.valueOf(ihour);
 		String minute = String.valueOf(iminute);
 		this.date_ordered = (year + "-" + month + "-" + day + " " + hour + ":" + minute);
-//		this.date_ordered=order.getDate_ordered();
 		this.order_amount=order.getOrder_amount();
 		this.patron_info= new PatronAdapter(order.getPatron_info());
 		this.number_of_tickets = order.getNumber_of_tickets();

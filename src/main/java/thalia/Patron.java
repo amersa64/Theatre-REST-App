@@ -54,12 +54,6 @@ public class Patron {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-//	public String getPhoneNum() {
-//		return phone;
-//	}
-//	public void setPhoneNum(String phoneNum) {
-//		this.phone = phoneNum;
-//	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;

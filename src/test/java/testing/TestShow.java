@@ -25,14 +25,22 @@ public class TestShow {
 	public void testCreateShow() {
 		Theatre.restart();
 //		Theatre thalia = Theatre.getInstance();
-		Section[] theatre1 = new Section[2];
+		Section[] theatre1 = new Section[6];
 		StaticSectionSetup.random=true;
 		StaticSectionSetup.resetIDGenerators();
 		StaticSectionSetup._init();
 		theatre1[0] = StaticSectionSetup.section_setup.get("Front right");
 		theatre1[1] = StaticSectionSetup.section_setup.get("Front center");
+		theatre1[2] = StaticSectionSetup.section_setup.get("Front left");
+		theatre1[3] = StaticSectionSetup.section_setup.get("Main right");
+		theatre1[4] = StaticSectionSetup.section_setup.get("Main center");
+		theatre1[5] = StaticSectionSetup.section_setup.get("Main left");
 		JSONObject jsonObj1 = new JSONObject();
 		JSONObject jsonObj2 = new JSONObject();
+		JSONObject jsonObj3 = new JSONObject();
+		JSONObject jsonObj4 = new JSONObject();
+		JSONObject jsonObj5 = new JSONObject();
+		JSONObject jsonObj6 = new JSONObject();
 
 		jsonObj1.put("sid", "123");
 		jsonObj1.put("price", 600);
@@ -42,11 +50,27 @@ public class TestShow {
 		jsonObj2.put("sid", "124");
 		jsonObj2.put("price", 60);
 		jsonArray.add(jsonObj2);
-//		System.out.println(jsonArray);
+
+		jsonObj3.put("sid", "125");
+		jsonObj3.put("price", 600);
+		jsonArray.add(jsonObj1);
+		
+		jsonObj4.put("sid", "126");
+		jsonObj4.put("price", 60);
+		jsonArray.add(jsonObj2);
+
+		jsonObj5.put("sid", "127");
+		jsonObj5.put("price", 600);
+		jsonArray.add(jsonObj1);
+		
+		jsonObj6.put("sid", "128");
+		jsonObj6.put("price", 60);
+		jsonArray.add(jsonObj2);
+		
 		Show sh = Show.createShow(Randomizer.randomTime(), Randomizer.randomDate(), theatre1, "MartinLutherKing", "www.movie.com", jsonArray);
 		
 		assertEquals(sh.getWid(), "0");
-		assertEquals(sh.getSeating_info().length, 2);
+		assertEquals(sh.getSeating_info().length, 6);
 	}
 		
 	@Test

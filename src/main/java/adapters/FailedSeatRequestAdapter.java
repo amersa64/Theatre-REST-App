@@ -12,7 +12,7 @@ public class FailedSeatRequestAdapter {
 	String status;
 	ArrayList<RowAvailAdapter> seating;
 	
-	public FailedSeatRequestAdapter(SeatRequestAdapter sra) { //Changed from Row to RowAdapter (Enums)
+	public FailedSeatRequestAdapter(SeatRequestAdapter sra) {
 		this.sid=sra.getSid();
 		this.section_name= sra.getSection_name();
 		this.status= sra.getStatus();

@@ -4,9 +4,6 @@ import java.util.Arrays;
 
 import seating.Seat.SeatStatus;
 
-//import testing.StaticSectionSetup;
-//import utility.SectionIDGenerator;
-
 public class Section {
 	String sid;
 	String section_name;

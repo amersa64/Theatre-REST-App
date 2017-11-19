@@ -12,7 +12,6 @@ public class DonationAvailAdapter {
 	protected int count;
 	protected String status;
 	protected ArrayList<String> tickets;
-//	protected Show show;
 	protected Patron patron_info;
 	
 	public DonationAvailAdapter(Donation d){

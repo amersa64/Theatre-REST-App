@@ -15,9 +15,6 @@ public class Randomizer {
 	}
 
 	public static LocalDate randomDate(){
-//		int month =(int) Math.floor(Math.random()*12);
-//		int day = (int) Math.floor(Math.random()*30);
-//		return LocalDate.of(2017,++month,++day);
 		Random  rnd;
 		LocalDate    dt;
 		long    ms;

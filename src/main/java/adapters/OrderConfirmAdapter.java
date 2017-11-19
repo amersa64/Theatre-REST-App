@@ -1,10 +1,7 @@
 
 package adapters;
 
-//import java.time.LocalDateTime;
-
 import thalia.Order;
-//import thalia.ShowData;
 
 public class OrderConfirmAdapter {
 	String oid;
@@ -16,7 +13,6 @@ public class OrderConfirmAdapter {
 	public OrderConfirmAdapter(Order order){
 		this.oid=order.getOid();
 		this.wid= order.getShow().getWid();
-//		this.show_info=order.getShow().getShow_info();
 		this.show_info= new ShowDataAdapter(order.getShow().getShow_info());
 		int iyear = order.getDate_ordered().getYear();
 		int imonth = order.getDate_ordered().getMonthValue();
@@ -29,7 +25,6 @@ public class OrderConfirmAdapter {
 		String hour = String.valueOf(ihour);
 		String minute = String.valueOf(iminute);
 		this.date_ordered = (year + "-" + month + "-" + day + " " + hour + ":" + minute);
-//		this.date_ordered=order.getDate_ordered();
 		this.order_amount=order.getOrder_amount();
 		this.tickets = new String[order.getTickets().length];
 		for (int i = 0; i < order.getTickets().length; i++){
@@ -55,18 +50,6 @@ public class OrderConfirmAdapter {
 		this.show_info = show_info;
 	}
 	public String getDate_ordered() {
-		
-//		int iyear = date_ordered.getYear();
-//		int imonth = date_ordered.getMonthValue();
-//		int iday = date_ordered.getDayOfMonth();
-//		int ihour = date_ordered.getHour();
-//		int iminute = date_ordered.getMinute();
-//		String year = String.valueOf(iyear);
-//		String month = String.valueOf(imonth);
-//		String day = String.valueOf(iday);
-//		String hour = String.valueOf(ihour);
-//		String minute = String.valueOf(iminute);
-//		return (year + "-" + month + "-" + day + " " + hour + ":" + minute);
 		return date_ordered;
 	}
 	public void setDate_ordered(String date_ordered) {

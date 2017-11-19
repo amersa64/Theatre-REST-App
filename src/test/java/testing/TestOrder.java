@@ -72,9 +72,10 @@ public class TestOrder {
 		String wid = show0.getWid();
 		String sid = "123";
 		Seat[] seats0 = new Seat[]{seat01,seat02};
+		assertTrue(theatre1[0].checkSeat(seat01));
 		Order o1 = Order.confirmOrder(wid, sid, p1, seats0);
 		
-		
+		assertFalse(theatre1[0].checkSeat(seat01));
 		Order o3 = Order.viewOrder("1");
 		assertNull(o3);
 		

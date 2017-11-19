@@ -13,7 +13,6 @@ import adapters.FailedSeatRequestAdapter;
 import adapters.SeatRequestAdapter;
 import adapters.SectionNameAdapter;
 import adapters.SectionNumberAdapter;
-//import testing.SSS;
 import mics.StaticSectionSetup;
 import thalia.Show;
 import thalia.Theatre;
@@ -49,7 +48,7 @@ public class SeatingAPI {
 	@Path("/{sid}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response ViewSpecificSeats(@PathParam("sid") String sid) {
-		StaticSectionSetup._init();//
+		StaticSectionSetup._init();
 		StaticSectionSetup.revertCid();
 		SectionNumberAdapter sna;
 		String section_name = StaticSectionSetup.sid_section_name_setup.get(sid);

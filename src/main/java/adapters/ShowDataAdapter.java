@@ -15,11 +15,6 @@ public class ShowDataAdapter {
 		int iday = sd.getDate().getDayOfMonth();
 		int ihour = sd.getTime().getHour();
 		int iminute = sd.getTime().getMinute();
-//		String year = String.valueOf(iyear);
-//		String month = String.valueOf(imonth);
-//		String day = String.valueOf(iday);
-//		String hour = String.valueOf(ihour);
-//		String minute = String.valueOf(iminute);
 		String year = String.format("%04d", iyear);
 		String month = String.format("%02d", imonth);
 		String day = String.format("%02d", iday);

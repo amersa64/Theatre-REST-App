@@ -1,8 +1,6 @@
 
 package adapters;
 
-//import java.time.LocalDateTime;
-
 import thalia.Order;
 import thalia.Ticket;
 
@@ -19,7 +17,6 @@ public class OrderLookAdapter {
 		this.oid=order.getOid();
 		this.wid= order.getShow().getWid();
 		this.show_info= new ShowDataAdapter(order.getShow().getShow_info());
-//		this.show_info=order.getShow().getShow_info();
 		int iyear = order.getDate_ordered().getYear();
 		int imonth = order.getDate_ordered().getMonthValue();
 		int iday = order.getDate_ordered().getDayOfMonth();
@@ -31,7 +28,6 @@ public class OrderLookAdapter {
 		String hour = String.valueOf(ihour);
 		String minute = String.valueOf(iminute);
 		this.date_ordered = (year + "-" + month + "-" + day + " " + hour + ":" + minute);
-//		this.date_ordered=order.getDate_ordered();
 		this.order_amount=order.getOrder_amount();
 		this.patron_info= new PatronAdapter(order.getPatron_info());
 		this.number_of_tickets = order.getNumber_of_tickets();
