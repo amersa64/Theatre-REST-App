@@ -1,1 +1,0 @@
-java -jar --add-modules java.xml.bind target/Thalia-0.0.1-SNAPSHOT.jar server
