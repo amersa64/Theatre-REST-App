@@ -12,7 +12,7 @@ $ sudo apt update; sudo apt install oracle-java9-installer
 Hit <OK>, <YES>
 $ sudo apt install oracle-java9-set-default
 
-JUNIT TESTING, GENERATING ,jar AND TEST COVERAGE*
+JUNIT TESTING, GENERATING .jar AND TEST COVERAGE*
 
 $ mvn clean package
 $ mvn test
