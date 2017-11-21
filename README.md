@@ -20,6 +20,6 @@ $ mvn test
 
 STARTING THE SERVER
 
-$ java -jar --add-modules java.xml.bind target/Thalia-0.0.1=SNAPSHOT.jar server configuration yml
+$ java -jar --add-modules java.xml.bind target/Thalia-0.0.1=SNAPSHOT.jar server configuration.yml
 
 
